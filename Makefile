@@ -1,38 +1,36 @@
-CXX?=g++ -O2 -Wall
-BUILD_DIR=build
+CXX?=g++
+CXXFLAGS?=-Iinclude -O2 -Wall -Werror
+CC?=gcc
+CFLAGS?=-Iinclude -O2 -Wall -Werror
+LIBS=-lstdc++ -lQt5Core -lQt5Widgets
 
-all: executable
+all: qt-c
 
 clean:
-	rm -r $(BUILD_DIR)
+	rm *.o qt-c libQtC.a
 
-executable: libQtC
-	$(CC) -o qt-c \
-		src/main.c \
-		$(BUILD_DIR)/libQtC.a \
-		-lQt5Core \
-		-lQt5Widgets \
-		-lstdc++ \
-		-I include
+qt-c: libQtC.a
+	$(CC) -o qt-c src/main.c libQtC.a $(LIBS) $(CFLAGS)
 
-libQtC: widgets
-	$(CXX) -c -o $(BUILD_DIR)/libQtC_Application.o lib/application.cpp -lstdc++ -I include
-	ar rcs $(BUILD_DIR)/libQtC.a \
-		$(BUILD_DIR)/libQtC_Application.o \
-		$(BUILD_DIR)/libQtC_widgets.Label.o \
-		$(BUILD_DIR)/libQtC_widgets.PushButton.o \
-		$(BUILD_DIR)/libQtC_widgets.Widget.o
+libQtC.a: Application.o PaintDevice.o widgets.Widget.o widgets.Label.o widgets.PushButton.o
+	ar rcs libQtC.a \
+		Application.o \
+		PaintDevice.o \
+		widgets.Label.o \
+		widgets.PushButton.o \
+		widgets.Widget.o
 
-widgets: build_dir widget_Widget widget_Label widget_PushButton
+Application.o:
+	$(CXX) -c -o Application.o lib/application.cpp $(CXXFLAGS)
 
-widget_Widget:
-	$(CXX) -c -o $(BUILD_DIR)/libQtC_widgets.Widget.o lib/widgets/widget.cpp -lstdc++ -I include
+PaintDevice.o:
+	$(CXX) -c -o PaintDevice.o lib/paintdevice.cpp $(CXXFLAGS)
 
-widget_Label:
-	$(CXX) -c -o $(BUILD_DIR)/libQtC_widgets.Label.o lib/widgets/label.cpp -lstdc++ -I include
+widgets.Widget.o:
+	$(CXX) -c -o widgets.Widget.o lib/widgets/widget.cpp $(CXXFLAGS)
 
-widget_PushButton:
-	$(CXX) -c -o $(BUILD_DIR)/libQtC_widgets.PushButton.o lib/widgets/pushbutton.cpp -lstdc++ -I include
+widgets.Label.o:
+	$(CXX) -c -o widgets.Label.o lib/widgets/label.cpp $(CXXFLAGS)
 
-build_dir:
-	mkdir -p $(BUILD_DIR)
+widgets.PushButton.o:
+	$(CXX) -c -o widgets.PushButton.o lib/widgets/pushbutton.cpp $(CXXFLAGS)

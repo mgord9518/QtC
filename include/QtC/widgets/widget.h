@@ -6,8 +6,6 @@
 extern "C" {
 #endif
 
-typedef struct QtC_Widget QtC_Widget;
-
 WIDGET_DECLARE(Widget);
 
 QtC_Widget* QtC_Widget_create();

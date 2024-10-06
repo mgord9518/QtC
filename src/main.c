@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
     QtC_Widget_setWindowTitle(window, window_title, sizeof(window_title));
 
     char text[] = "Hello, world!";
-    QtC_PushButton* button = QtC_PushButton_create(
+    QtC_PushButton_create(
         text,
         sizeof(text),
         window

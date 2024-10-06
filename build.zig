@@ -54,6 +54,7 @@ pub fn buildLibQtC(
     });
 
     lib.addIncludePath(b.path("include"));
+    lib.addIncludePath(b.path("private_include"));
 
     lib.addCSourceFiles(.{
         .root = b.path("."),

@@ -1,18 +1,15 @@
 const Widget = @This();
 
-pub const c = @cImport({
-    @cInclude("QtC/widgets/widget.h");
-    @cInclude("QtC/widgets/label.h");
-    @cInclude("QtC/widgets/pushbutton.h");
-});
+const Object = @import("../Object.zig");
+const PaintDevice = @import("../PaintDevice.zig");
 
-pub fn WidgetGen(comptime widget_name: []const u8) type {
+const type_name = "Widget";
+
+pub const c = Object.c;
+
+pub fn Gen(comptime widget_name: []const u8) type {
     return struct {
         const Self = @This();
-
-        pub fn deinit(wid: *Self) void {
-            @field(c, "QtC_" ++ widget_name ++ "_destroy")(@ptrCast(wid));
-        }
 
         pub fn resize(wid: *Self, w: u32, h: u32) void {
             @field(c, "QtC_" ++ widget_name ++ "_resize")(
@@ -35,6 +32,10 @@ pub fn WidgetGen(comptime widget_name: []const u8) type {
                 @intCast(label.len),
             );
         }
+
+        pub fn setParent(wid: *Self, new_parent: ?*Widget) void {
+            @field(c, "QtC_" ++ widget_name ++ "_setParentWidget")(@ptrCast(wid), @ptrCast(new_parent));
+        }
     };
 }
 
@@ -43,9 +44,17 @@ pub fn init() *Widget {
 }
 
 pub fn deinit(wid: *Widget) void {
-    wid.widget().deinit();
+    wid.object().deinit();
 }
 
-pub fn widget(wid: *Widget) *WidgetGen("Widget") {
+pub fn widget(wid: *Widget) *Gen(type_name) {
+    return @ptrCast(wid);
+}
+
+pub fn object(wid: *Widget) *Object.Gen(type_name) {
+    return @ptrCast(wid);
+}
+
+pub fn paintDevice(wid: *Widget) *PaintDevice.Gen(type_name) {
     return @ptrCast(wid);
 }
