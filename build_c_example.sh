@@ -1,10 +1,10 @@
 #!/bin/sh
 
 $CC \
-    -o main \
+    -o qt-c \
     -lQt5Core \
     -lQt5Widgets \
     -lstdc++ \
     src/main.c \
     -I include/ \
-    build/libQt_c.a
+    zig-out/lib/libQtC.a

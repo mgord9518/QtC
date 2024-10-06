@@ -1,21 +1,23 @@
 const std = @import("std");
 const qt = @import("qt");
-const QWidget = qt.QWidget;
-const QApplication = qt.QApplication;
-const QPushButton = qt.QPushButton;
+const widgets = qt.widgets;
 
 pub fn main() !void {
-    const app = QApplication.init(
-        @intCast(std.os.argv.len),
-        @ptrCast(std.os.argv.ptr),
-    );
+    const app = qt.Application.init();
 
-    const window = QWidget.init();
+    const window = widgets.Widget.init();
+    defer window.deinit();
 
-    _ = QPushButton.init("Hello, world!", window);
+    window.widget().setWindowTitle("Qt with Zig!");
 
-    window.resize(500, 500);
-    window.show();
+    const button = widgets.PushButton.init("Hello, world!", window);
+    defer button.deinit();
+
+    const label = widgets.Label.init("bruh", window);
+    defer label.deinit();
+
+    window.widget().resize(500, 500);
+    window.widget().show();
 
     app.exec();
 }

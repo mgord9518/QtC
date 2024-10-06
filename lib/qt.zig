@@ -1,3 +1,3 @@
-pub const QWidget = @import("QWidget.zig");
-pub const QApplication = @import("QApplication.zig");
-pub const QPushButton = @import("QPushButton.zig");
+pub const widgets = @import("widgets/widgets.zig");
+
+pub const Application = @import("Application.zig");

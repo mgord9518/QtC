@@ -11,7 +11,7 @@ pub fn build(b: *std.Build) void {
     qt_module.addIncludePath(b.path("include"));
 
     const exe = b.addExecutable(.{
-        .name = "qt-c",
+        .name = "qt-zig",
         .root_source_file = b.path("src/main.zig"),
         .target = target,
         .optimize = optimize,
@@ -19,14 +19,15 @@ pub fn build(b: *std.Build) void {
 
     exe.root_module.addImport("qt", qt_module);
 
-    exe.root_module.addIncludePath(b.path("include"));
+    const lib = try buildLibQtC(b, .{
+        .name = "QtC",
+        .target = target,
+        .optimize = optimize,
+    });
 
-    exe.linkSystemLibrary("c++");
-    exe.linkSystemLibrary("Qt5Core");
-    exe.linkSystemLibrary("Qt5Widgets");
+    exe.linkLibrary(lib);
 
-    exe.addObjectFile(b.path("build/libQt_c.a"));
-
+    b.installArtifact(lib);
     b.installArtifact(exe);
 
     const run_cmd = b.addRunArtifact(exe);
@@ -39,4 +40,34 @@ pub fn build(b: *std.Build) void {
 
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&run_cmd.step);
+}
+
+pub fn buildLibQtC(
+    b: *std.Build,
+    options: std.Build.ExecutableOptions,
+) !*std.Build.Step.Compile {
+    const lib = b.addStaticLibrary(.{
+        .name = "QtC",
+        .target = options.target,
+        .optimize = options.optimize,
+        .strip = options.strip orelse false,
+    });
+
+    lib.addIncludePath(b.path("include"));
+
+    lib.addCSourceFiles(.{
+        .root = b.path("."),
+        .files = &.{
+            "lib/application.cpp",
+            "lib/widgets/pushbutton.cpp",
+            "lib/widgets/label.cpp",
+            "lib/widgets/widget.cpp",
+        },
+    });
+
+    lib.linkLibCpp();
+    lib.linkSystemLibrary("Qt5Core");
+    lib.linkSystemLibrary("Qt5Widgets");
+
+    return lib;
 }
