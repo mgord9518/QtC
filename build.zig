@@ -19,8 +19,8 @@ pub fn build(b: *std.Build) void {
 
     exe.root_module.addImport("qt", qt_module);
 
-    const lib = try buildLibQtC(b, .{
-        .name = "QtC",
+    const lib = try buildLibQtC5(b, .{
+        .name = "QtC5",
         .target = target,
         .optimize = optimize,
     });
@@ -42,12 +42,12 @@ pub fn build(b: *std.Build) void {
     run_step.dependOn(&run_cmd.step);
 }
 
-pub fn buildLibQtC(
+pub fn buildLibQtC5(
     b: *std.Build,
     options: std.Build.ExecutableOptions,
 ) !*std.Build.Step.Compile {
     const lib = b.addStaticLibrary(.{
-        .name = "QtC",
+        .name = "QtC5",
         .target = options.target,
         .optimize = options.optimize,
         .strip = options.strip orelse false,

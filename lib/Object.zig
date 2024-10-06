@@ -1,10 +1,10 @@
 const Object = @This();
 
 pub const c = @cImport({
-    @cInclude("QtC/object.h");
-    @cInclude("QtC/widgets/widget.h");
-    @cInclude("QtC/widgets/label.h");
-    @cInclude("QtC/widgets/pushbutton.h");
+    @cInclude("QtC5/object.h");
+    @cInclude("QtC5/widgets/widget.h");
+    @cInclude("QtC5/widgets/label.h");
+    @cInclude("QtC5/widgets/pushbutton.h");
 });
 
 pub fn Gen(comptime object_name: []const u8) type {

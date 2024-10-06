@@ -3,9 +3,9 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QWidget>
 
-#include <QtC/private/widget_macros.h>
-#include <QtC/widgets/label.h>
-#include <QtC/widgets/widget.h>
+#include <QtC5/private/widget_macros.h>
+#include <QtC5/widgets/label.h>
+#include <QtC5/widgets/widget.h>
 
 extern "C" {
 

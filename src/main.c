@@ -1,6 +1,6 @@
-#include <QtC/application.h>
-#include <QtC/widgets/pushbutton.h>
-#include <QtC/widgets/label.h>
+#include <QtC5/application.h>
+#include <QtC5/widgets/pushbutton.h>
+#include <QtC5/widgets/label.h>
 
 int main(int argc, char** argv) {
     QtC_Application* app = QtC_Application_create(

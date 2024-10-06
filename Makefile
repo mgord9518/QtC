@@ -4,33 +4,26 @@ CC?=gcc
 CFLAGS?=-Iinclude -O2 -Wall -Werror
 LIBS=-lstdc++ -lQt5Core -lQt5Widgets
 
-all: qt-c
+base_objects=application.o paintdevice.o
+widget_objects=widget.o label.o pushbutton.o
+objects=$(base_objects) $(widget_objects)
+
+all: qt-c libQtC.so
 
 clean:
-	rm *.o qt-c libQtC.a
+	rm *.o qt-c libQtC.a libQtC.so
 
 qt-c: libQtC.a
 	$(CC) -o qt-c src/main.c libQtC.a $(LIBS) $(CFLAGS)
 
-libQtC.a: Application.o PaintDevice.o widgets.Widget.o widgets.Label.o widgets.PushButton.o
-	ar rcs libQtC.a \
-		Application.o \
-		PaintDevice.o \
-		widgets.Label.o \
-		widgets.PushButton.o \
-		widgets.Widget.o
+libQtC.a: $(objects)
+	ar rcs libQtC.a $(objects)
 
-Application.o:
-	$(CXX) -c -o Application.o lib/application.cpp $(CXXFLAGS)
+libQtC.so: $(objects)
+	$(CC) -o libQtC.so -shared $(objects)
 
-PaintDevice.o:
-	$(CXX) -c -o PaintDevice.o lib/paintdevice.cpp $(CXXFLAGS)
+$(base_objects): %.o: lib/%.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-widgets.Widget.o:
-	$(CXX) -c -o widgets.Widget.o lib/widgets/widget.cpp $(CXXFLAGS)
-
-widgets.Label.o:
-	$(CXX) -c -o widgets.Label.o lib/widgets/label.cpp $(CXXFLAGS)
-
-widgets.PushButton.o:
-	$(CXX) -c -o widgets.PushButton.o lib/widgets/pushbutton.cpp $(CXXFLAGS)
+$(widget_objects): %.o: lib/widgets/%.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@

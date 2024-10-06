@@ -1,7 +1,7 @@
 #include <QtGui/QPaintDevice>
 
-#include <QtC/private/paintdevice_macros.h>
-#include <QtC/paintdevice.h>
+#include <QtC5/private/paintdevice_macros.h>
+#include <QtC5/paintdevice.h>
 
 extern "C" {
 

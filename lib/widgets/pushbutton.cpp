@@ -3,8 +3,8 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
-#include <QtC/widgets/pushbutton.h>
-#include <QtC/widgets/widget.h>
+#include <QtC5/widgets/pushbutton.h>
+#include <QtC5/widgets/widget.h>
 
 extern "C" {
 

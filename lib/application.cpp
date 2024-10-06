@@ -1,5 +1,5 @@
 #include <QtWidgets/QApplication>
-#include <QtC/application.h>
+#include <QtC5/application.h>
 
 extern "C" {
 

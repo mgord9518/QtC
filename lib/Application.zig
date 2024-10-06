@@ -2,7 +2,7 @@ const std = @import("std");
 const Application = @This();
 
 const c = @cImport({
-    @cInclude("QtC/application.h");
+    @cInclude("QtC5/application.h");
 });
 
 pub fn init() *Application {

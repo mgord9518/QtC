@@ -2,3 +2,4 @@ build
 qt-c
 main
 zig-out
+.zig-cache

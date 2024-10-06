@@ -1,7 +1,7 @@
 #include <QObject>
 
-#include <QtC/private/object_macros.h>
-#include <QtC/object.h>
+#include <QtC5/private/object_macros.h>
+#include <QtC5/object.h>
 
 extern "C" {
 
