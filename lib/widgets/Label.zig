@@ -1,5 +1,5 @@
 const Label = @This();
-const Widget = @import("Widget.zig");
+const Widget = @import("../Widget.zig");
 const Object = @import("../Object.zig");
 
 const type_name = "Label";

@@ -4,9 +4,10 @@ CC?=gcc
 CFLAGS?=-Iinclude -O2 -Wall -Werror
 LIBS=-lstdc++ -lQt5Core -lQt5Widgets
 
-base_objects=application.o paintdevice.o
-widget_objects=widget.o label.o pushbutton.o
-objects=$(base_objects) $(widget_objects)
+base_objects=application.o paintdevice.o layout.o widget.o
+widget_objects=label.o pushbutton.o
+layout_objects=boxlayout.o
+objects=$(base_objects) $(widget_objects) $(layout_objects)
 
 all: qt-c libQtC.so
 
@@ -26,4 +27,7 @@ $(base_objects): %.o: lib/%.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 $(widget_objects): %.o: lib/widgets/%.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+$(layout_objects): %.o: lib/layouts/%.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@

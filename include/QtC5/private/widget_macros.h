@@ -1,35 +1,36 @@
 #pragma once
 
+#include "common.h"
 #include "object_macros.h"
 #include "paintdevice_macros.h"
 
 typedef struct QtC_Widget QtC_Widget;
 
-#define WIDGET_DECLARE(Widget) \
-    OBJECT_DECLARE(Widget) \
-    PAINTDEVICE_DECLARE(Widget) \
-    void QtC_##Widget##_resize(QtC_##Widget*, int, int); \
-    void QtC_##Widget##_show(QtC_##Widget*); \
-    void QtC_##Widget##_setWindowTitle(QtC_##Widget*, const char*, int); \
-    void QtC_##Widget##_setParentWidget(QtC_##Widget*, QtC_Widget*); \
-
-#define WIDGET_DEFINE(Widget) \
-    OBJECT_DEFINE(Widget) \
-    PAINTDEVICE_DEFINE(Widget) \
-    void QtC_##Widget##_resize(QtC_##Widget* wid, int w, int h) { \
-        reinterpret_cast<Q##Widget*>(wid)->resize(w, h); \
-    } \
-    void QtC_##Widget##_show(QtC_##Widget* wid) { \
-        reinterpret_cast<Q##Widget*>(wid)->show(); \
-    } \
-    void QtC_##Widget##_setWindowTitle(QtC_##Widget* wid, const char* label, int label_len) { \
-        reinterpret_cast<Q##Widget*>(wid)->setWindowTitle(QString::fromUtf8(label, label_len)); \
-    } \
+#define WIDGET_DECLARE(Self) \
+    OBJECT_DECLARE(Self) \
+    PAINTDEVICE_DECLARE(Self) \
+    void QtC_FN(Self, resize, int width, int height); \
+    void QtC_FN(Self, show); \
+    void QtC_FN(Self, setWindowTitle, const char* label, int label_len); \
     /* As the QObject.setParent and QWidget.setParent methods are not compatible,
      * this function must have a different name */ \
-    void QtC_##Widget##_setParentWidget(QtC_##Widget* wid, QtC_Widget* parent) { \
-        reinterpret_cast<Q##Widget*>(wid)->setParent( \
-            reinterpret_cast<QWidget*>(parent) \
+    void QtC_FN(Self, setParentWidget, QtC_Widget* parent); \
+
+#define WIDGET_DEFINE(Self) \
+    OBJECT_DEFINE(Self) \
+    PAINTDEVICE_DEFINE(Self) \
+    void QtC_FN(Self, resize, int w, int h) { \
+        QtC_TO_CLASS(Self, self)->resize(w, h); \
+    } \
+    void QtC_FN(Self, show) { \
+        QtC_TO_CLASS(Self, self)->show(); \
+    } \
+    void QtC_FN(Self, setWindowTitle, const char* label, int label_len) { \
+        QtC_TO_CLASS(Self, self)->setWindowTitle(QString::fromUtf8(label, label_len)); \
+    } \
+    void QtC_FN(Self, setParentWidget, QtC_Widget* parent) { \
+        QtC_TO_CLASS(Self, self)->setParent( \
+            QtC_TO_CLASS(Self, parent) \
         ); \
     } \
 

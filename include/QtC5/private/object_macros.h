@@ -1,34 +1,35 @@
 #pragma once
 
 #include <stdbool.h>
+#include "common.h"
 
-typedef struct QtC_Object QtC_Object; \
+typedef struct QtC_Object QtC_Object;
 
-#define OBJECT_DECLARE(Object) \
-    void QtC_##Object##_destroy(QtC_##Object*); \
-    bool QtC_##Object##_blockSignals(QtC_##Object*, bool); \
-    QtC_Object* QtC_##Object##_parent(const QtC_##Object*); \
-    void QtC_##Object##_setParent(QtC_##Object*, QtC_Object*); \
-    bool QtC_##Object##_signalsBlocked(const QtC_##Object*); \
+#define OBJECT_DECLARE(Self) \
+    void        QtC_FN(Self,       destroy); \
+    bool        QtC_FN(Self,       blockSignals, bool block); \
+    QtC_Object* QtC_CONST_FN(Self, parent); \
+    void        QtC_FN(Self,       setParent, QtC_Object* parent); \
+    bool        QtC_CONST_FN(Self, signalsBlocked); \
 
-#define OBJECT_DEFINE(Object) \
-    void QtC_##Object##_destroy(QtC_##Object* obj) { \
-        delete reinterpret_cast<Q##Object*>(obj); \
+#define OBJECT_DEFINE(Self) \
+    void QtC_FN(Self, destroy) { \
+        delete QtC_TO_CLASS(Self, self); \
     } \
-    bool QtC_##Object##_blockSignals(QtC_##Object* obj, bool block) { \
-        return reinterpret_cast<Q##Object*>(obj)->blockSignals(block); \
+    bool QtC_FN(Self, blockSignals, bool block) { \
+        return QtC_TO_CLASS(Self, self)->blockSignals(block); \
     } \
-    QtC_Object* QtC_##Object##_parent(const QtC_##Object* obj) { \
-        return reinterpret_cast<QtC_Object*>( \
-            reinterpret_cast<const Q##Object*>(obj)->parent() \
+    QtC_Object* QtC_CONST_FN(Self, parent) { \
+        return QtC_FROM_CLASS(Object, \
+            QtC_TO_CONST_CLASS(Self, self)->parent() \
         ); \
     } \
-    void QtC_##Object##_setParent(QtC_##Object* obj, QtC_Object* parent) { \
-        qobject_cast<QObject*>(reinterpret_cast<Q##Object*>(obj))->setParent( \
-            reinterpret_cast<QObject*>(parent) \
+    void QtC_FN(Self, setParent, QtC_Object* parent) { \
+        qobject_cast<QObject*>(QtC_TO_CLASS(Self, self))->setParent( \
+            QtC_TO_CLASS(Object, parent) \
         ); \
     } \
-    bool QtC_##Object##_signalsBlocked(const QtC_##Object* obj) { \
-        return reinterpret_cast<const Q##Object*>(obj)->signalsBlocked(); \
+    bool QtC_CONST_FN(Self, signalsBlocked) {\
+        return QtC_TO_CONST_CLASS(Self, self)->signalsBlocked(); \
     } \
 

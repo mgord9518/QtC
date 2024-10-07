@@ -1,6 +1,7 @@
 const std = @import("std");
 const qt = @import("qt");
 const widgets = qt.widgets;
+const layouts = qt.layouts;
 
 pub fn main() !void {
     const app = qt.Application.init();
@@ -13,8 +14,8 @@ pub fn main() !void {
     const button = widgets.PushButton.init("Hello, world!", window);
     defer button.deinit();
 
-    const label = widgets.Label.init("bruh", window);
-    defer label.deinit();
+    const layout = layouts.BoxLayout.init(window);
+    layout.layout().addWidget(button.widget());
 
     window.widget().resize(500, 500);
     window.widget().show();

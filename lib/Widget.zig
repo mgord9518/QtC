@@ -1,7 +1,7 @@
 const Widget = @This();
 
-const Object = @import("../Object.zig");
-const PaintDevice = @import("../PaintDevice.zig");
+const Object = @import("Object.zig");
+const PaintDevice = @import("PaintDevice.zig");
 
 const type_name = "Widget";
 
@@ -10,6 +10,7 @@ pub const c = Object.c;
 pub fn Gen(comptime widget_name: []const u8) type {
     return struct {
         const Self = @This();
+        pub const QtZig_is_widget = true;
 
         pub fn resize(wid: *Self, w: u32, h: u32) void {
             @field(c, "QtC_" ++ widget_name ++ "_resize")(
@@ -40,7 +41,7 @@ pub fn Gen(comptime widget_name: []const u8) type {
 }
 
 pub fn init() *Widget {
-    return @ptrCast(c.QtC_Widget_create());
+    return @ptrCast(@alignCast(c.QtC_Widget_create()));
 }
 
 pub fn deinit(wid: *Widget) void {

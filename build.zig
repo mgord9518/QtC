@@ -59,10 +59,11 @@ pub fn buildLibQtC5(
     lib.addCSourceFiles(.{
         .root = b.path("."),
         .files = &.{
+            "lib/widget.cpp",
             "lib/application.cpp",
+            "lib/layouts/boxlayout.cpp",
             "lib/widgets/pushbutton.cpp",
             "lib/widgets/label.cpp",
-            "lib/widgets/widget.cpp",
         },
     });
 

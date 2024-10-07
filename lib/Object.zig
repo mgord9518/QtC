@@ -2,6 +2,7 @@ const Object = @This();
 
 pub const c = @cImport({
     @cInclude("QtC5/object.h");
+    @cInclude("QtC5/layouts/boxlayout.h");
     @cInclude("QtC5/widgets/widget.h");
     @cInclude("QtC5/widgets/label.h");
     @cInclude("QtC5/widgets/pushbutton.h");
