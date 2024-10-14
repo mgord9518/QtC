@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../private/widget_macros.h"
+#include "private/widget_macros.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -8,7 +8,8 @@ extern "C" {
 
 WIDGET_DECLARE(Widget);
 
-QtC_Widget* QtC_Widget_create();
+// TODO: WindowFlags
+QtC_Widget* QtC_Widget_create(void* parent);
 
 #ifdef __cplusplus
 }

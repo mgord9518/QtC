@@ -1,7 +1,9 @@
-#include <QtC5/application.h>
-#include <QtC5/widgets/pushbutton.h>
-#include <QtC5/widgets/label.h>
-#include <QtC5/layouts/boxlayout.h>
+#include <QtC6/application.h>
+#include <QtC6/pushbutton.h>
+#include <QtC6/label.h>
+#include <QtC6/boxlayout.h>
+
+#define SLICE(str) str, sizeof(str)
 
 int main(int argc, char** argv) {
     QtC_Application* app = QtC_Application_create(
@@ -9,21 +11,28 @@ int main(int argc, char** argv) {
         argv
     );    
 
-    QtC_Widget* window = QtC_Widget_create();
+    QtC_Widget* window = QtC_Widget_create(NULL);
 
-    char window_title[] = "Qt with C!";
-    QtC_Widget_setWindowTitle(window, window_title, sizeof(window_title));
+    QtC_Widget_setWindowTitle(window, SLICE("Qt with C!"));
 
-
-    char text[] = "Hello, world!";
-    QtC_PushButton* button = QtC_PushButton_create(
-        text,
-        sizeof(text),
+    QtC_Label* label = QtC_Label_create(
+        SLICE("I'm a label!"),
+        NULL,
         0
     );
 
-    QtC_BoxLayout* layout = QtC_BoxLayout_create(window);
-    QtC_BoxLayout_addWidget(layout, (QtC_Widget*)button);
+    QtC_PushButton* button = QtC_PushButton_create(
+        SLICE("Hello, world!"),
+        NULL
+    );
+
+    QtC_BoxLayout* layout = QtC_BoxLayout_create(
+        QtC_BoxLayout_Direction_BottomToTop,
+        window
+    );
+
+    QtC_BoxLayout_addWidget(layout, button);
+    QtC_BoxLayout_addWidget(layout, label);
 
     QtC_Widget_resize(window, 500, 500);
     QtC_Widget_show(window);

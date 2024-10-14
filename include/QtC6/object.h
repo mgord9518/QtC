@@ -8,7 +8,7 @@ extern "C" {
 
 OBJECT_DECLARE(Object);
 
-QtC_Object* QtC_Object_create(QtC_Object*);
+QtC_Object* QtC_Object_create(void* parent);
 
 #ifdef __cplusplus
 }

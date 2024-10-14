@@ -6,7 +6,7 @@ pub const c = @cImport({
     @cInclude("QtC5/widgets/pushbutton.h");
 });
 
-pub fn Gen(comptime paint_device_name: []const u8) type {
+pub fn Impl(comptime paint_device_name: []const u8) type {
     return struct {
         const Self = @This();
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "private/layout_macros.h"
-#include "widgets/widget.h"
+#include "widget.h"
 
 #ifdef __cplusplus
 extern "C" {

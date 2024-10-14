@@ -3,6 +3,7 @@
 #include "common.h"
 #include "object_macros.h"
 #include "paintdevice_macros.h"
+#include "stdio.h"
 
 typedef struct QtC_Widget QtC_Widget;
 

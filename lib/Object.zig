@@ -1,41 +1,35 @@
+const qtc = @import("qtc.zig");
 const Object = @This();
 
-pub const c = @cImport({
-    @cInclude("QtC5/object.h");
-    @cInclude("QtC5/layouts/boxlayout.h");
-    @cInclude("QtC5/widgets/widget.h");
-    @cInclude("QtC5/widgets/label.h");
-    @cInclude("QtC5/widgets/pushbutton.h");
-});
+const type_name = "Object";
 
-pub fn Gen(comptime object_name: []const u8) type {
+pub fn Impl(comptime object_name: []const u8) type {
     return struct {
         const Self = @This();
 
         pub fn deinit(obj: *Self) void {
-            @field(c, "QtC_" ++ object_name ++ "_destroy")(@ptrCast(obj));
+            qtc.QtC_fn(object_name, "destroy")(@ptrCast(obj));
         }
 
         pub fn parent(obj: *const Self) ?*Self {
             return @ptrCast(
-                @field(c, "QtC_" ++ object_name ++ "_parent")(@ptrCast(obj)),
+                qtc.QtC_fn(object_name, "parent")(@ptrCast(obj)),
             );
         }
 
-        pub fn setParent(obj: *Self, new_parent: ?*Object) void {
-            @field(c, "QtC_" ++ object_name ++ "_setParent")(@ptrCast(obj), @ptrCast(new_parent));
+        pub fn setParent(obj: *Self, new_parent: ?*void) void {
+            qtc.QtC_fn(object_name, "setParent")(
+                @ptrCast(obj),
+                new_parent,
+            );
+        }
+
+        pub fn object(self: *Self) *Self {
+            return self;
         }
     };
 }
 
-pub fn init(parent: *Object) *Object {
-    return @ptrCast(c.QtC_Object_create(parent));
-}
-
-pub fn deinit(obj: *Object) void {
-    obj.object().deinit();
-}
-
-pub fn object(obj: *Object) *Gen("Object") {
-    return @ptrCast(obj);
+pub fn init(parent: *?anyopaque) *Impl(type_name) {
+    return @ptrCast(qtc.QtC_fn(type_name, "create")(parent));
 }

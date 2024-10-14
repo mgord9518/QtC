@@ -19,13 +19,15 @@ pub fn build(b: *std.Build) void {
 
     exe.root_module.addImport("qt", qt_module);
 
-    const lib = try buildLibQtC5(b, .{
-        .name = "QtC5",
+    const lib = try buildLibQtC6(b, .{
+        .name = "QtC6",
         .target = target,
         .optimize = optimize,
     });
 
     exe.linkLibrary(lib);
+    exe.linkSystemLibrary("Qt6Core");
+    exe.linkSystemLibrary("Qt6Widgets");
 
     b.installArtifact(lib);
     b.installArtifact(exe);
@@ -42,34 +44,37 @@ pub fn build(b: *std.Build) void {
     run_step.dependOn(&run_cmd.step);
 }
 
-pub fn buildLibQtC5(
+pub fn buildLibQtC6(
     b: *std.Build,
     options: std.Build.ExecutableOptions,
 ) !*std.Build.Step.Compile {
     const lib = b.addStaticLibrary(.{
-        .name = "QtC5",
+        .name = "QtC6",
         .target = options.target,
         .optimize = options.optimize,
         .strip = options.strip orelse false,
     });
 
     lib.addIncludePath(b.path("include"));
-    lib.addIncludePath(b.path("private_include"));
 
     lib.addCSourceFiles(.{
         .root = b.path("."),
         .files = &.{
             "lib/widget.cpp",
             "lib/application.cpp",
-            "lib/layouts/boxlayout.cpp",
-            "lib/widgets/pushbutton.cpp",
-            "lib/widgets/label.cpp",
+            "lib/boxlayout.cpp",
+            "lib/pushbutton.cpp",
+            "lib/label.cpp",
+        },
+        .flags = &.{
+            "-Wall",
+            "-Werror",
         },
     });
 
     lib.linkLibCpp();
-    lib.linkSystemLibrary("Qt5Core");
-    lib.linkSystemLibrary("Qt5Widgets");
+    lib.linkSystemLibrary("Qt6Core");
+    lib.linkSystemLibrary("Qt6Widgets");
 
     return lib;
 }
