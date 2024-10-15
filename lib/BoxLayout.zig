@@ -1,34 +1,24 @@
-const qt = @import("qt.zig");
-const qtc = @import("qtc.zig");
-
-const std = @import("std");
+const c = @import("qt.zig").c;
 
 const BoxLayout = @This();
 
 const Widget = @import("Widget.zig");
 const Object = @import("Object.zig");
 
-const type_name = "BoxLayout";
+pub fn addWidget(self: *BoxLayout, child: ?*Widget) void {
+    c.QtC_Layout_addWidget(
+        @ptrCast(self),
+        child,
+    );
+}
 
-pub fn Impl(comptime layout_name: []const u8) type {
-    return struct {
-        const Self = @This();
+pub fn deinit(self: *BoxLayout) void {
+    self.widget().object().deinit();
+}
 
-        pub fn addWidget(self: *Self, child: ?*anyopaque) void {
-            qtc.QtC_fn(layout_name, "addWidget")(
-                @ptrCast(self),
-                child,
-            );
-        }
-
-        pub fn deinit(self: *Self) void {
-            self.widget().object().deinit();
-        }
-
-        pub fn layout(self: *Self) *Self {
-            return self;
-        }
-    };
+// TODO
+pub fn layout(self: *BoxLayout) *BoxLayout {
+    return self;
 }
 
 pub const Direction = enum(u2) {
@@ -38,9 +28,9 @@ pub const Direction = enum(u2) {
     bottom_to_top = 3,
 };
 
-pub fn init(direction: Direction, parent: ?*anyopaque) *Impl(type_name) {
+pub fn init(direction: Direction, parent: ?*Widget) *BoxLayout {
     return @ptrCast(
-        qtc.QtC_fn("BoxLayout", "create")(
+        c.QtC_BoxLayout_create(
             @intFromEnum(direction),
             parent,
         ),

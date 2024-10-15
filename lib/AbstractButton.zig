@@ -1,27 +1,20 @@
 const AbstractButton = @This();
+const Widget = @import("Widget.zig");
 
-const qtc = @import("qtc.zig");
+const c = @import("qt.zig").c;
 
-const type_name = "AbstractButton";
+pub fn setText(self: *AbstractButton, label: []const u8) void {
+    c.QtC_fn("AbstractButton", @src().fn_name)(
+        @ptrCast(self),
+        label.ptr,
+        @intCast(label.len),
+    );
+}
 
-pub fn Impl(comptime widget_name: []const u8) type {
-    return struct {
-        const Self = @This();
+pub fn deinit(self: *AbstractButton) void {
+    self.widget().object().deinit();
+}
 
-        pub fn setText(self: *Self, label: []const u8) void {
-            qtc.QtC_fn(widget_name, "setText")(
-                @ptrCast(self),
-                label.ptr,
-                @intCast(label.len),
-            );
-        }
-
-        pub fn deinit(self: *Self) void {
-            self.widget().object().deinit();
-        }
-
-        pub fn widget(self: *Self) *Self {
-            return self;
-        }
-    };
+pub fn widget(self: *AbstractButton) *Widget {
+    return @ptrCast(self);
 }

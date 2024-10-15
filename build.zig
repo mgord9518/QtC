@@ -28,6 +28,7 @@ pub fn build(b: *std.Build) void {
     exe.linkLibrary(lib);
     exe.linkSystemLibrary("Qt6Core");
     exe.linkSystemLibrary("Qt6Widgets");
+    exe.linkSystemLibrary("Qt6Gui");
 
     b.installArtifact(lib);
     b.installArtifact(exe);
@@ -60,11 +61,14 @@ pub fn buildLibQtC6(
     lib.addCSourceFiles(.{
         .root = b.path("."),
         .files = &.{
+            "lib/object.cpp",
             "lib/widget.cpp",
             "lib/application.cpp",
+            "lib/layout.cpp",
             "lib/boxlayout.cpp",
             "lib/pushbutton.cpp",
             "lib/label.cpp",
+            "lib/pixmap.cpp",
         },
         .flags = &.{
             "-Wall",
@@ -75,6 +79,7 @@ pub fn buildLibQtC6(
     lib.linkLibCpp();
     lib.linkSystemLibrary("Qt6Core");
     lib.linkSystemLibrary("Qt6Widgets");
+    lib.linkSystemLibrary("Qt6Gui");
 
     return lib;
 }

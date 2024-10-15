@@ -1,5 +1,7 @@
 pub const Application = @import("Application.zig");
 
+pub const Pixmap = @import("Pixmap.zig");
+
 pub const layouts = struct {
     pub const BoxLayout = @import("BoxLayout.zig");
 };
@@ -32,3 +34,14 @@ pub fn isType(comptime T: type, comptime type_name: []const u8) bool {
 
     unreachable;
 }
+
+pub const c = @cImport({
+    @cInclude("QtC6/application.h");
+    @cInclude("QtC6/object.h");
+    @cInclude("QtC6/layout.h");
+    @cInclude("QtC6/boxlayout.h");
+    @cInclude("QtC6/widget.h");
+    @cInclude("QtC6/label.h");
+    @cInclude("QtC6/pushbutton.h");
+    @cInclude("QtC6/pixmap.h");
+});

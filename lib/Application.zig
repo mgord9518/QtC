@@ -1,4 +1,4 @@
-const qtc = @import("qtc.zig");
+const c = @import("qt.zig").c;
 
 const std = @import("std");
 const Application = @This();
@@ -8,12 +8,12 @@ pub fn init() *Application {
 }
 
 pub fn initWithArgs(args: @TypeOf(std.os.argv)) *Application {
-    return @ptrCast(qtc.QtC_fn("Application", "create")(
+    return @ptrCast(c.QtC_Application_create(
         @intCast(args.len),
         @ptrCast(args.ptr),
     ));
 }
 
 pub fn exec(app: *Application) void {
-    qtc.QtC_fn("Application", "exec")(@ptrCast(app));
+    c.QtC_Application_exec(@ptrCast(app));
 }

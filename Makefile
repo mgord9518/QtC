@@ -8,23 +8,23 @@ LDFLAGS=-lstdc++ -lQt6Core -lQt6Widgets
 
 objects= \
 	application.o \
-	paintdevice.o \
+	object.o paintdevice.o pixmap.o \
 	layout.o boxlayout.o \
 	widget.o label.o pushbutton.o
 
-all: qt-c libQtC.so
+all: qt-c libQtC6.so
 
 clean:
-	rm $(objects) qt-c libQtC.a libQtC.so
+	rm $(objects) qt-c libQtC6.a libQtC6.so
 
-qt-c: libQtC.a
-	$(CC) -o qt-c src/main.c libQtC.a $(LDFLAGS) $(CFLAGS)
+qt-c: libQtC6.a
+	$(CC) -o qt-c src/main.c libQtC6.a $(LDFLAGS) $(CFLAGS)
 
-libQtC.a: $(objects)
-	ar rcs libQtC.a $(objects)
+libQtC6.a: $(objects)
+	ar rcs libQtC6.a $(objects)
 
-libQtC.so: $(objects)
-	$(CC) -o libQtC.so -shared $(objects)
+libQtC6.so: $(objects)
+	$(CC) -o libQtC6.so -shared $(objects)
 
 $(objects): %.o: lib/%.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@

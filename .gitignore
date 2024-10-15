@@ -2,3 +2,7 @@ qt-c
 main
 zig-out
 .zig-cache
+
+ragnacustoms-qt
+file.png
+file.webp

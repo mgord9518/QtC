@@ -1,15 +1,21 @@
 #pragma once
 
-#include "private/layout_macros.h"
 #include "widget.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-LAYOUT_DECLARE(Layout);
+typedef struct QtC_Layout QtC_Layout;
 
-QtC_Layout* QtC_Layout_create(QtC_Widget*);
+QtC_Layout* QtC_Layout_create(
+    QtC_Widget* parent
+);
+
+void QtC_Layout_addWidget(
+    QtC_Layout* self,
+    void* child
+);
 
 #ifdef __cplusplus
 }

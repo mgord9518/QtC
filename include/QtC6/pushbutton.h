@@ -1,13 +1,12 @@
 #pragma once
 
-#include "private/pushbutton_macros.h"
 #include "widget.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-PUSHBUTTON_DECLARE(PushButton);
+typedef struct QtC_PushButton QtC_PushButton;
 
 QtC_PushButton* QtC_PushButton_create(
     const char* label,

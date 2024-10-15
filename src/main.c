@@ -1,6 +1,9 @@
+#include <stddef.h>
+
 #include <QtC6/application.h>
 #include <QtC6/pushbutton.h>
 #include <QtC6/label.h>
+#include <QtC6/layout.h>
 #include <QtC6/boxlayout.h>
 
 #define SLICE(str) str, sizeof(str)
@@ -31,8 +34,10 @@ int main(int argc, char** argv) {
         window
     );
 
-    QtC_BoxLayout_addWidget(layout, button);
-    QtC_BoxLayout_addWidget(layout, label);
+    QtC_Widget_show((QtC_Widget*)button);
+
+    QtC_Layout_addWidget((QtC_Layout*)layout, button);
+    QtC_Layout_addWidget((QtC_Layout*)layout, label);
 
     QtC_Widget_resize(window, 500, 500);
     QtC_Widget_show(window);
