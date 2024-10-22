@@ -36,8 +36,8 @@ int main(int argc, char** argv) {
 
     QtC_Widget_show((QtC_Widget*)button);
 
-    QtC_Layout_addWidget((QtC_Layout*)layout, button);
-    QtC_Layout_addWidget((QtC_Layout*)layout, label);
+    QtC_Layout_addWidget((QtC_Layout*)layout, (QtC_Widget*)button);
+    QtC_Layout_addWidget((QtC_Layout*)layout, (QtC_Widget*)label);
 
     QtC_Widget_resize(window, 500, 500);
     QtC_Widget_show(window);
