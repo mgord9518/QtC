@@ -1,0 +1,17 @@
+#!/bin/sh
+
+qtwidgets_soname="/nix/store/bgfalfi93kbn8j1wfwz0x0dnk1wx9wdp-qtbase-6.8.0/lib/libQt6Widgets.so.6"
+qtcore_soname="/nix/store/bgfalfi93kbn8j1wfwz0x0dnk1wx9wdp-qtbase-6.8.0/lib/libQt6Core.so.6"
+qtgui_soname="/nix/store/bgfalfi93kbn8j1wfwz0x0dnk1wx9wdp-qtbase-6.8.0/lib/libQt6Gui.so.6"
+
+out_name="required_symbols"
+
+symbols=$(
+#nm "$qtwidgets_soname" "$qtcore_soname" "$qtgui_soname" \
+nm "lib.so" \
+    -f just-symbols -U --dynamic --without-symbol-versions | grep -v "Qt_6" | grep -v "NonQt" | perl -p -e 'chomp if eof' | tr '\n' '\x00'
+)
+
+symbol_num=$(echo "$symbols" | wc -l)
+
+echo "$symbols" > "$out_name"

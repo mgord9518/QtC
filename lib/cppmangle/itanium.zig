@@ -1,11 +1,5 @@
 const std = @import("std");
 
-fn init() callconv(.C) void {
-    std.debug.print("INIT\n", .{});
-}
-
-export const init_array: [1]*const fn () callconv(.C) void linksection(".init_array") = .{&init};
-
 pub const FunctionType = enum {
     function,
 };
@@ -57,17 +51,20 @@ pub fn qtMangle(
 
 pub fn newMangle(
     comptime nest: ?[]const []const u8,
+    comptime is_const: bool,
     comptime function_name: []const u8,
     comptime function_type: FunctionType,
     comptime template_args: []const Type,
     comptime function_args: []const []const u8,
-) []const u8 {
+) [:0]const u8 {
     comptime {
         var ret: []const u8 = "_Z";
 
         // First, mangle the namespace
         if (nest) |n| {
             ret = ret ++ "N";
+
+            if (is_const) ret = ret ++ "K";
 
             for (n) |namespace| {
                 // Special name for std
@@ -103,7 +100,8 @@ pub fn newMangle(
         }
         //ret = ret ++ mangleArguments(function_args);
 
-        return ret;
+        ret = ret ++ "\x00";
+        return ret[0 .. ret.len - 1 :0];
     }
 
     _ = function_type;

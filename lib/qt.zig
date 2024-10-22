@@ -35,6 +35,25 @@ pub fn isType(comptime T: type, comptime type_name: []const u8) bool {
     unreachable;
 }
 
+pub const Alignment = struct {
+    horizontal: HorizontalAlignment,
+    vertical: VerticalAlignment,
+
+    pub const HorizontalAlignment = enum(c_uint) {
+        left = 0x001,
+        right = 0x002,
+        center = 0x004,
+        justify = 0x008,
+    };
+
+    pub const VerticalAlignment = enum(c_uint) {
+        top = 0x020,
+        bottom = 0x040,
+        center = 0x080,
+        baseline = 0x100,
+    };
+};
+
 pub const c = @cImport({
     @cInclude("QtC6/application.h");
     @cInclude("QtC6/object.h");

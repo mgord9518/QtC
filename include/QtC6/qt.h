@@ -15,6 +15,17 @@ typedef enum QtC_WindowFlags {
     QtC_WindowFlags_CoverWindow   =               0x00000040 | QtC_WindowFlags_Window,
 } QtC_WindowFlags;
 
+typedef enum QtC_Alignment {
+    QtC_Alignment_Left     = 0x001,
+    QtC_Alignment_Right    = 0x002,
+    QtC_Alignment_HCenter  = 0x004,
+    QtC_Alignment_Justify  = 0x008,
+    QtC_Alignment_Top      = 0x020,
+    QtC_Alignment_Bottom   = 0x040,
+    QtC_Alignment_VCenter  = 0x080,
+    QtC_Alignment_Baseline = 0x100,
+} QtC_Alignment;
+
 typedef enum QtC_WindowHints {
     QtC_WindowHints_MSWindowsFixedSizeDialog = 0x00000100,
 } QtC_WindowHints;

@@ -4,14 +4,26 @@ const c = @import("qt.zig").c;
 
 const PaintDevice = @import("PaintDevice.zig");
 
-pub fn loadFromFile(self: *Pixmap, filename: []const u8, format: ?[]const u8, flags: ?u32) bool {
-    _ = format;
+pub fn load(self: *Pixmap, filename: []const u8, format: ?[]const u8, flags: ?u32) bool {
+    const f = if (format != null) format.?.ptr else null;
 
-    return c.QtC_Pixmap_loadFromFile(
+    return c.QtC_Pixmap_load(
         @ptrCast(self),
         filename.ptr,
         @intCast(filename.len),
-        null,
+        f,
+        @intCast(flags orelse 0),
+    );
+}
+
+pub fn loadFromData(self: *Pixmap, data: []const u8, format: ?[]const u8, flags: ?u32) bool {
+    const f = if (format != null) format.?.ptr else null;
+
+    return c.QtC_Pixmap_loadFromData(
+        @ptrCast(self),
+        data.ptr,
+        @intCast(data.len),
+        f,
         @intCast(flags orelse 0),
     );
 }

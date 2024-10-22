@@ -13,11 +13,21 @@ pub fn build(b: *std.Build) void {
     const exe = b.addExecutable(.{
         .name = "qt-zig",
         .root_source_file = b.path("src/main.zig"),
+        //.root_source_file = b.path("ragnacustoms-qt/src/main.zig"),
         .target = target,
         .optimize = optimize,
     });
 
     exe.root_module.addImport("qt", qt_module);
+
+    //    const lib_dynamic_shim = try buildLibQt6DynamicShim(b, .{
+    //        .name = "Qt6DynamicShim",
+    //        .target = target,
+    //        .optimize = optimize,
+    //    });
+    //    _ = &lib_dynamic_shim;
+    //
+    //    exe.linkLibrary(lib_dynamic_shim);
 
     const lib = try buildLibQtC6(b, .{
         .name = "QtC6",
@@ -45,6 +55,34 @@ pub fn build(b: *std.Build) void {
     run_step.dependOn(&run_cmd.step);
 }
 
+pub fn buildLibQt6DynamicShim(
+    b: *std.Build,
+    options: std.Build.ExecutableOptions,
+) !*std.Build.Step.Compile {
+    const lib = b.addStaticLibrary(.{
+        .name = "Qt6DynamicShim",
+        .target = options.target,
+        .optimize = options.optimize,
+        .strip = options.strip orelse false,
+    });
+
+    lib.addCSourceFiles(.{
+        .root = b.path("."),
+        .files = &.{
+            "lib/cppmangle/qt6_shim.cpp",
+        },
+        .flags = &.{
+            "-DQT_NO_VERSION_TAGGING",
+            //   "-Wall",
+            //  "-Werror",
+        },
+    });
+
+    lib.linkLibC();
+
+    return lib;
+}
+
 pub fn buildLibQtC6(
     b: *std.Build,
     options: std.Build.ExecutableOptions,
@@ -61,6 +99,7 @@ pub fn buildLibQtC6(
     lib.addCSourceFiles(.{
         .root = b.path("."),
         .files = &.{
+            //"lib/string.cpp",
             "lib/object.cpp",
             "lib/widget.cpp",
             "lib/application.cpp",

@@ -42,4 +42,10 @@ bool QtC_Label_hasScaledContents(const QtC_Label* self) {
     return QtC_TO_CONST_CLASS(Label, self)->hasScaledContents();
 }
 
+void QtC_Label_setAlignment(QtC_Label* self, QtC_Alignment align) {
+    QtC_TO_CLASS(Label, self)->setAlignment(
+        static_cast<Qt::Alignment>(align)
+    );
+}
+
 }

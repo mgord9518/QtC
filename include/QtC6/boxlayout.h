@@ -1,6 +1,7 @@
 #pragma once
 
 #include "widget.h"
+#include "layout.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,6 +19,11 @@ typedef enum QtC_BoxLayout_Direction {
 QtC_BoxLayout* QtC_BoxLayout_create(
     QtC_BoxLayout_Direction direction,
     void* parent
+);
+
+void QtC_BoxLayout_addLayout(
+    QtC_BoxLayout* self,
+    QtC_Layout* child_layout
 );
 
 #ifdef __cplusplus

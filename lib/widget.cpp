@@ -18,6 +18,14 @@ void QtC_Widget_resize(QtC_Widget* self, int w, int h) {
     QtC_TO_CLASS(Widget, self)->resize(w, h);
 }
 
+void QtC_Widget_setMinimumSize(QtC_Widget* self, int w, int h) {
+    QtC_TO_CLASS(Widget, self)->setMinimumSize(w, h);
+}
+
+void QtC_Widget_setMaximumSize(QtC_Widget* self, int w, int h) {
+    QtC_TO_CLASS(Widget, self)->setMaximumSize(w, h);
+}
+
 void QtC_Widget_show(QtC_Widget* self) {
     QtC_TO_CLASS(Widget, self)->show();
 }

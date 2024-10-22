@@ -8,5 +8,7 @@ pkgs.mkShell {
   ];
 
   # Need for dlopen to work
-  #LD_LIBRARY_PATH = pkgs.qt6.qtbase.outPath + "/lib";
+  LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+    pkgs.qt6.qtbase
+  ];
 }

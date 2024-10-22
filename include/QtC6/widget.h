@@ -17,6 +17,18 @@ void QtC_Widget_resize(
     int height
 );
 
+void QtC_Widget_setMinimumSize(
+    QtC_Widget* self,
+    int width,
+    int height
+);
+
+void QtC_Widget_setMaximumSize(
+    QtC_Widget* self,
+    int width,
+    int height
+);
+
 void QtC_Widget_show(
     QtC_Widget* self
 );

@@ -23,6 +23,22 @@ pub fn resize(wid: *Widget, w: u32, h: u32) void {
     );
 }
 
+pub fn setMinimumSize(wid: *Widget, w: u32, h: u32) void {
+    c.QtC_Widget_setMinimumSize(
+        @ptrCast(wid),
+        @intCast(w),
+        @intCast(h),
+    );
+}
+
+pub fn setMaximumSize(wid: *Widget, w: u32, h: u32) void {
+    c.QtC_Widget_setMaximumSize(
+        @ptrCast(wid),
+        @intCast(w),
+        @intCast(h),
+    );
+}
+
 pub fn show(wid: *Widget) void {
     c.QtC_Widget_show(
         @ptrCast(wid),

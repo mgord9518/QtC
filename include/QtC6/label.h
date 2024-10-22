@@ -37,6 +37,11 @@ bool QtC_Label_hasScaledContents(
     const QtC_Label* self
 );
 
+void QtC_Label_setAlignment(
+    QtC_Label* self,
+    QtC_Alignment align
+);
+
 #ifdef __cplusplus
 }
 #endif

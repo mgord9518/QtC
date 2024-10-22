@@ -2,22 +2,26 @@ const c = @import("qt.zig").c;
 
 const BoxLayout = @This();
 
+const Layout = @import("Layout.zig");
 const Widget = @import("Widget.zig");
-const Object = @import("Object.zig");
-
-pub fn addWidget(self: *BoxLayout, child: ?*Widget) void {
-    c.QtC_Layout_addWidget(
-        @ptrCast(self),
-        child,
-    );
-}
 
 pub fn deinit(self: *BoxLayout) void {
     self.widget().object().deinit();
 }
 
+pub fn addLayout(self: *BoxLayout, child: ?*Layout) void {
+    c.QtC_BoxLayout_addLayout(
+        @ptrCast(self),
+        @ptrCast(child),
+    );
+}
+
 // TODO
-pub fn layout(self: *BoxLayout) *BoxLayout {
+pub fn layout(self: *BoxLayout) *Layout {
+    return @ptrCast(self);
+}
+
+pub fn boxLayout(self: *BoxLayout) *BoxLayout {
     return self;
 }
 

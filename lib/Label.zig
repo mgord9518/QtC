@@ -1,6 +1,7 @@
 const c = @import("qt.zig").c;
 
 const Label = @This();
+const qt = @import("qt.zig");
 const Widget = @import("Widget.zig");
 const Pixmap = @import("Pixmap.zig");
 
@@ -40,6 +41,13 @@ pub fn widget(self: *Label) *Widget {
 
 pub fn label(self: *Label) *Label {
     return self;
+}
+
+pub fn setAlignment(self: *Label, alignment: qt.Alignment) void {
+    c.QtC_Label_setAlignment(
+        @ptrCast(self),
+        @intFromEnum(alignment.vertical) | @intFromEnum(alignment.horizontal),
+    );
 }
 
 pub fn init(lab: []const u8, parent: ?*anyopaque, flags: u32) *Label {
