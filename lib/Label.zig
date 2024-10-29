@@ -5,12 +5,10 @@ const qt = @import("qt.zig");
 const Widget = @import("Widget.zig");
 const Pixmap = @import("Pixmap.zig");
 
-pub fn setText(wid: *Label, lab: []const u8) void {
-    c.QtC_Label_setText(
-        @ptrCast(wid),
-        lab.ptr,
-        @intCast(lab.len),
-    );
+pub fn setText(self: *Label, text: []const u8) void {
+    const str = c.QtC_String_create(text.ptr, @intCast(text.len));
+
+    c.QtC_Label_setText(@ptrCast(self), str);
 }
 
 pub fn setPixmap(self: *Label, pixmap: ?*const anyopaque) void {
@@ -50,10 +48,11 @@ pub fn setAlignment(self: *Label, alignment: qt.Alignment) void {
     );
 }
 
-pub fn init(lab: []const u8, parent: ?*anyopaque, flags: u32) *Label {
+pub fn init(text: []const u8, parent: ?*anyopaque, flags: u32) *Label {
+    const str = c.QtC_String_create(text.ptr, @intCast(text.len));
+
     return @ptrCast(c.QtC_Label_create(
-        lab.ptr,
-        @intCast(lab.len),
+        str,
         parent,
         flags,
     ));

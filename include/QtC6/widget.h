@@ -1,5 +1,8 @@
 #pragma once
 
+#include "qt.h"
+#include "string.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -8,7 +11,8 @@ typedef struct QtC_Widget QtC_Widget;
 
 // TODO: WindowFlags
 QtC_Widget* QtC_Widget_create(
-    void* parent
+    QtC_Widget*     parent,
+    QtC_WindowFlags flags
 );
 
 void QtC_Widget_resize(
@@ -35,8 +39,7 @@ void QtC_Widget_show(
 
 void QtC_Widget_setWindowTitle(
     QtC_Widget* self,
-    const char* label,
-    int label_len
+    const QtC_String* label
 );
 
 void QtC_Widget_setParent(

@@ -99,7 +99,7 @@ pub fn buildLibQtC6(
     lib.addCSourceFiles(.{
         .root = b.path("."),
         .files = &.{
-            //"lib/string.cpp",
+            "lib/string.cpp",
             "lib/object.cpp",
             "lib/widget.cpp",
             "lib/application.cpp",
@@ -107,6 +107,9 @@ pub fn buildLibQtC6(
             "lib/boxlayout.cpp",
             "lib/pushbutton.cpp",
             "lib/label.cpp",
+            "lib/lineedit.cpp",
+            "lib/listview.cpp",
+            "lib/listwidget.cpp",
             "lib/pixmap.cpp",
         },
         .flags = &.{

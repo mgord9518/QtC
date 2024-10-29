@@ -11,10 +11,9 @@
 
 extern "C" {
 
-// TODO: flags
-QtC_Label* QtC_Label_create(const char* label, int label_len, void* parent, QtC_WindowFlags flags) {
+QtC_Label* QtC_Label_create(const QtC_String* label, void* parent, QtC_WindowFlags flags) {
     QLabel* self= new QLabel(
-        QString::fromUtf8(label, label_len),
+        *reinterpret_cast<const QString*>(label),
         reinterpret_cast<QWidget*>(parent),
         static_cast<Qt::WindowFlags>(flags)
     );

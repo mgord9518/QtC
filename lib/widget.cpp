@@ -1,17 +1,17 @@
 #include <QtWidgets/QWidget>
 
+#include <QtC6/qt.h>
 #include <QtC6/private/common.h>
+#include <QtC6/string.h>
 #include <QtC6/widget.h>
 
 extern "C" {
 
-// TODO: WindowFlags
-QtC_Widget* QtC_Widget_create(void* parent) {
-    return reinterpret_cast<QtC_Widget*>(
-        new QWidget(
-            reinterpret_cast<QWidget*>(parent)
-        )
-    );
+QtC_Widget* QtC_Widget_create(QtC_Widget* parent, QtC_WindowFlags flags) {
+    return QtC_FROM_CLASS(Widget, new QWidget(
+        QtC_TO_CLASS(Widget, parent),
+        static_cast<Qt::WindowFlags>(flags)
+    ));
 }
 
 void QtC_Widget_resize(QtC_Widget* self, int w, int h) {
@@ -30,8 +30,10 @@ void QtC_Widget_show(QtC_Widget* self) {
     QtC_TO_CLASS(Widget, self)->show();
 }
 
-void QtC_Widget_setWindowTitle(QtC_Widget* self, const char* label, int label_len) {
-    QtC_TO_CLASS(Widget, self)->setWindowTitle(QString::fromUtf8(label, label_len));
+void QtC_Widget_setWindowTitle(QtC_Widget* self, const QtC_String* label) {
+    QtC_TO_CLASS(Widget, self)->setWindowTitle(
+        *QtC_TO_CONST_CLASS(String, label)
+    );
 }
 
 void QtC_Widget_setParent(QtC_Widget* self, QtC_Widget* parent) {

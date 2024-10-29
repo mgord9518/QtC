@@ -1,31 +1,39 @@
 #include <stddef.h>
 
+#include <QtC6/qt.h>
+#include <QtC6/string.h>
 #include <QtC6/application.h>
 #include <QtC6/pushbutton.h>
 #include <QtC6/label.h>
 #include <QtC6/layout.h>
 #include <QtC6/boxlayout.h>
 
-#define SLICE(str) str, sizeof(str)
+#define STR(str) \
+    QtC_String_create(str, sizeof(str) - 1)
 
 int main(int argc, char** argv) {
     QtC_Application* app = QtC_Application_create(
         argc,
         argv
-    );    
+    );
 
-    QtC_Widget* window = QtC_Widget_create(NULL);
+    QtC_Widget* window = QtC_Widget_create(NULL, QtC_WindowFlags_Window);
 
-    QtC_Widget_setWindowTitle(window, SLICE("Qt with C!"));
+    QtC_Widget_setWindowTitle(window, STR("Qt with C!"));
+
+    QtC_Pixmap* pixmap = QtC_Pixmap_create(0, 0);
+    QtC_Pixmap_load(pixmap, STR("clogo.png"), "png", 0);
 
     QtC_Label* label = QtC_Label_create(
-        SLICE("I'm a label!"),
+        STR("I'm a label!"),
         NULL,
         0
     );
 
+    QtC_Label_setPixmap(label, pixmap);
+
     QtC_PushButton* button = QtC_PushButton_create(
-        SLICE("Hello, world!"),
+        STR("Hello, world!"),
         NULL
     );
 

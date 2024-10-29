@@ -1,13 +1,15 @@
 const Widget = @This();
 
-const c = @import("qt.zig").c;
+const qt = @import("qt.zig");
+const c = qt.c;
 
 const Object = @import("Object.zig");
 const PaintDevice = @import("PaintDevice.zig");
 
-pub fn init(parent: ?*Widget) *Widget {
+pub fn init(parent: ?*Widget, flags: qt.WindowFlags) *Widget {
     return @ptrCast(c.QtC_Widget_create(
         @ptrCast(parent),
+        @intFromEnum(flags),
     ));
 }
 
@@ -46,10 +48,11 @@ pub fn show(wid: *Widget) void {
 }
 
 pub fn setWindowTitle(wid: *Widget, label: []const u8) void {
+    const str = c.QtC_String_create(label.ptr, @intCast(label.len));
+
     c.QtC_Widget_setWindowTitle(
         @ptrCast(wid),
-        label.ptr,
-        @intCast(label.len),
+        str,
     );
 }
 

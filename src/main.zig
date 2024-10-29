@@ -8,7 +8,7 @@ const zig_svg = @embedFile("zig.svg");
 pub fn main() !void {
     const app = qt.Application.init();
 
-    const window = widgets.Widget.init(null);
+    const window = widgets.Widget.init(null, .window);
     defer window.deinit();
 
     window.widget().setWindowTitle("Qt with Zig!");

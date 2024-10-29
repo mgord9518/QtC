@@ -4,11 +4,11 @@ CXXFLAGS?=-Iinclude -O3 -Wall -Werror
 CC?=gcc
 CFLAGS?=-Iinclude -O2 -Wall -Werror
 
-LDFLAGS=-lstdc++ -lQt6Core -lQt6Widgets
+LDFLAGS=-lstdc++ -lQt6Core -lQt6Widgets -lQt6Gui
 
 objects= \
 	application.o \
-	object.o paintdevice.o pixmap.o \
+	object.o paintdevice.o pixmap.o string.o \
 	layout.o boxlayout.o \
 	widget.o label.o pushbutton.o
 

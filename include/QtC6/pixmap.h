@@ -2,6 +2,8 @@
 
 #include <stdbool.h>
 
+#include "string.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -15,8 +17,7 @@ QtC_Pixmap* QtC_Pixmap_create(
 
 bool QtC_Pixmap_load(
     QtC_Pixmap* self,
-    const char* filename,
-    int filename_len,
+    const QtC_String* filename,
     const char* format,
     // TODO type
     int flags

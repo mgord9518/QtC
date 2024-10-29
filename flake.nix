@@ -12,6 +12,5 @@
   in {
     packages.x86_64-linux.default =
       import ./shell.nix { inherit pkgs; };
-
   };
 }

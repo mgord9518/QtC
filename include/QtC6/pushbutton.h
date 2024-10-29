@@ -1,6 +1,7 @@
 #pragma once
 
 #include "widget.h"
+#include "string.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -9,9 +10,8 @@ extern "C" {
 typedef struct QtC_PushButton QtC_PushButton;
 
 QtC_PushButton* QtC_PushButton_create(
-    const char* label,
-    int label_len,
-    void* parent
+    const QtC_String* label,
+    QtC_Widget* parent
 );
 
 #ifdef __cplusplus

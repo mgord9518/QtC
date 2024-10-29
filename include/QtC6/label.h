@@ -2,6 +2,7 @@
 
 #include "widget.h"
 #include "pixmap.h"
+#include "string.h"
 #include "qt.h"
 
 #ifdef __cplusplus
@@ -11,8 +12,7 @@ extern "C" {
 typedef struct QtC_Label QtC_Label;
 
 QtC_Label* QtC_Label_create(
-    const char* str,
-    int size,
+    const QtC_String* label,
     void* parent,
     QtC_WindowFlags flags
 );

@@ -14,11 +14,11 @@ QtC_Pixmap* QtC_Pixmap_create(int width, int height) {
 }
 
 // TODO: flag type
-bool QtC_Pixmap_load(QtC_Pixmap* self, const char* filename, int filename_len, const char* format, int flags) {
+bool QtC_Pixmap_load(QtC_Pixmap* self, const QtC_String* filename, const char* format, int flags) {
     QPixmap* pixmap = reinterpret_cast<QPixmap*>(self);
 
     return pixmap->load(
-        QString::fromUtf8(filename, filename_len),
+        *reinterpret_cast<const QString*>(filename),
         format
     );
 }
