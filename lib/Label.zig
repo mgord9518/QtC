@@ -5,13 +5,31 @@ const qt = @import("qt.zig");
 const Widget = @import("Widget.zig");
 const Pixmap = @import("Pixmap.zig");
 
+pub const Options = struct {
+    parent: ?*Widget = null,
+    label: []const u8 = "",
+    flags: qt.WindowFlags = .widget,
+};
+
+pub fn init(opts: Options) *Label {
+    const str = c.QtC_String_new(opts.label.ptr, @intCast(opts.label.len));
+    defer c.QtC_String_delete(str);
+
+    return @ptrCast(c.QtC_Label_create(
+        str,
+        opts.parent,
+        @intFromEnum(opts.flags),
+    ));
+}
+
 pub fn setText(self: *Label, text: []const u8) void {
-    const str = c.QtC_String_create(text.ptr, @intCast(text.len));
+    const str = c.QtC_String_new(text.ptr, @intCast(text.len));
+    defer c.QtC_String_delete(str);
 
     c.QtC_Label_setText(@ptrCast(self), str);
 }
 
-pub fn setPixmap(self: *Label, pixmap: ?*const anyopaque) void {
+pub fn setPixmap(self: *Label, pixmap: ?*const Pixmap) void {
     c.QtC_Label_setPixmap(
         @ptrCast(self),
         @ptrCast(pixmap),
@@ -46,14 +64,4 @@ pub fn setAlignment(self: *Label, alignment: qt.Alignment) void {
         @ptrCast(self),
         @intFromEnum(alignment.vertical) | @intFromEnum(alignment.horizontal),
     );
-}
-
-pub fn init(text: []const u8, parent: ?*anyopaque, flags: u32) *Label {
-    const str = c.QtC_String_create(text.ptr, @intCast(text.len));
-
-    return @ptrCast(c.QtC_Label_create(
-        str,
-        parent,
-        flags,
-    ));
 }

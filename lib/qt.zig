@@ -1,8 +1,9 @@
+pub const Object = @import("Object.zig");
 pub const Application = @import("Application.zig");
-
 pub const Pixmap = @import("Pixmap.zig");
 
 pub const layouts = struct {
+    pub const Layout = @import("Layout.zig");
     pub const BoxLayout = @import("BoxLayout.zig");
 };
 
@@ -14,6 +15,8 @@ pub const widgets = struct {
     pub const ListView = @import("ListView.zig");
     pub const ListWidget = @import("ListWidget.zig");
     pub const LineEdit = @import("LineEdit.zig");
+    pub const MenuBar = @import("MenuBar.zig");
+    pub const MainWindow = @import("MainWindow.zig");
 
     pub const Label = @import("Label.zig");
 };
@@ -88,4 +91,6 @@ pub const c = @cImport({
     @cInclude("QtC6/pushbutton.h");
     @cInclude("QtC6/pixmap.h");
     @cInclude("QtC6/string.h");
+    @cInclude("QtC6/menubar.h");
+    @cInclude("QtC6/mainwindow.h");
 });

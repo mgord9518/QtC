@@ -4,10 +4,13 @@
 #include <QtC6/private/common.h>
 #include <QtC6/string.h>
 #include <QtC6/widget.h>
+#include <QtC6/layout.h>
 
 extern "C" {
 
-QtC_Widget* QtC_Widget_create(QtC_Widget* parent, QtC_WindowFlags flags) {
+QtC_COMMON_FUNCTIONS(Widget);
+
+QtC_Widget* QtC_Widget_new(QtC_Widget* parent, QtC_WindowFlags flags) {
     return QtC_FROM_CLASS(Widget, new QWidget(
         QtC_TO_CLASS(Widget, parent),
         static_cast<Qt::WindowFlags>(flags)
@@ -33,6 +36,12 @@ void QtC_Widget_show(QtC_Widget* self) {
 void QtC_Widget_setWindowTitle(QtC_Widget* self, const QtC_String* label) {
     QtC_TO_CLASS(Widget, self)->setWindowTitle(
         *QtC_TO_CONST_CLASS(String, label)
+    );
+}
+
+void QtC_Widget_setLayout(QtC_Widget* self, QtC_Layout* layout) {
+    QtC_TO_CLASS(Widget, self)->setLayout(
+        QtC_TO_CLASS(Layout, layout)
     );
 }
 

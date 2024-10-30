@@ -1,13 +1,14 @@
 #pragma once
 
-#include "widget.h"
+#include "private/common.h"
+#include "private/widget_defs.h"
 #include "layout.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct QtC_BoxLayout QtC_BoxLayout;
+QtC_COMMON_DECLS(BoxLayout);
 
 typedef enum QtC_BoxLayout_Direction {
     QtC_BoxLayout_Direction_LeftToRight = 0,
@@ -16,9 +17,9 @@ typedef enum QtC_BoxLayout_Direction {
     QtC_BoxLayout_Direction_BottomToTop = 3,
 } QtC_BoxLayout_Direction;
 
-QtC_BoxLayout* QtC_BoxLayout_create(
+QtC_BoxLayout* QtC_BoxLayout_new(
     QtC_BoxLayout_Direction direction,
-    void* parent
+    QtC_Widget* parent
 );
 
 void QtC_BoxLayout_addLayout(

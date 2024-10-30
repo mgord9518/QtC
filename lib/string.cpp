@@ -5,8 +5,10 @@
 
 extern "C" {
 
-const QtC_String* QtC_String_create(const char* string, int string_len) {
-    return reinterpret_cast<QtC_String*>(
+QtC_COMMON_FUNCTIONS(String);
+
+QtC_String* QtC_String_new(const char* string, int string_len) {
+    return QtC_FROM_CLASS(String,
         new QString(QByteArray(string, string_len))
     );
 }

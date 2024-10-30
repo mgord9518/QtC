@@ -1,13 +1,11 @@
 #pragma once
 
+#include "private/widget_defs.h"
 #include "string.h"
-#include "widget.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-typedef struct QtC_LineEdit QtC_LineEdit;
 
 QtC_LineEdit* QtC_LineEdit_create(
     QtC_Widget* parent

@@ -18,13 +18,4 @@ QtC_PushButton* QtC_PushButton_create(const QtC_String* label, QtC_Widget* paren
     return reinterpret_cast<QtC_PushButton*>(but);
 }
 
-QtC_PushButton* QtC_PushButton_create2(const char* label, int label_len, QtC_Widget* parent) {
-    QPushButton* but = new QPushButton(
-        QString::fromUtf8(label, label_len),
-        reinterpret_cast<QWidget*>(parent)
-    );
-
-    return reinterpret_cast<QtC_PushButton*>(but);
-}
-
 }

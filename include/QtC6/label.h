@@ -1,6 +1,6 @@
 #pragma once
 
-#include "widget.h"
+#include "private/widget_defs.h"
 #include "pixmap.h"
 #include "string.h"
 #include "qt.h"
@@ -8,8 +8,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-typedef struct QtC_Label QtC_Label;
 
 QtC_Label* QtC_Label_create(
     const QtC_String* label,

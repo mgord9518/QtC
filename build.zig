@@ -13,7 +13,6 @@ pub fn build(b: *std.Build) void {
     const exe = b.addExecutable(.{
         .name = "qt-zig",
         .root_source_file = b.path("src/main.zig"),
-        //.root_source_file = b.path("ragnacustoms-qt/src/main.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -111,6 +110,8 @@ pub fn buildLibQtC6(
             "lib/listview.cpp",
             "lib/listwidget.cpp",
             "lib/pixmap.cpp",
+            "lib/menubar.cpp",
+            "lib/mainwindow.cpp",
         },
         .flags = &.{
             "-Wall",

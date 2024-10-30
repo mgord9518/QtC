@@ -11,10 +11,28 @@ pub fn init(parent: ?*Widget) *ListWidget {
     ));
 }
 
+pub fn deinit(self: *ListWidget) void {
+    c.QtC_ListWidget_delete(@ptrCast(self));
+}
+
+pub fn addItem(self: *ListWidget, item: []const u8) void {
+    const str = c.QtC_String_new(item.ptr, @intCast(item.len));
+    defer c.QtC_String_delete(str);
+
+    c.QtC_ListWidget_addItemString(
+        @ptrCast(self),
+        str,
+    );
+}
+
 pub fn widget(self: *ListWidget) *Widget {
     return @ptrCast(self);
 }
 
 pub fn listView(self: *ListWidget) *ListView {
     return @ptrCast(self);
+}
+
+pub fn listWidget(self: *ListWidget) *ListWidget {
+    return self;
 }

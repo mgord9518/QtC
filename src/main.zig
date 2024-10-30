@@ -8,21 +8,25 @@ const zig_svg = @embedFile("zig.svg");
 pub fn main() !void {
     const app = qt.Application.init();
 
-    const window = widgets.Widget.init(null, .window);
+    const window = widgets.Widget.init(.{});
     defer window.deinit();
-
     window.widget().setWindowTitle("Qt with Zig!");
 
-    const button = widgets.PushButton.init("Hello, world!", null);
+    const button = widgets.PushButton.init(.{ .label = "Hello, world!" });
     defer button.deinit();
     button.widget().show();
 
-    const label = widgets.Label.init("I'm a label!", window, 0);
+    const label = widgets.Label.init(.{
+        .label = "I'm a label!",
+        .parent = window.widget(),
+    });
+    defer label.deinit();
 
-    const layout = layouts.BoxLayout.init(
-        .top_to_bottom,
-        window,
-    );
+    const layout = layouts.BoxLayout.init(.{
+        .direction = .top_to_bottom,
+        .parent = window.widget(),
+    });
+    defer layout.deinit();
 
     layout.layout().addWidget(label.widget());
     layout.layout().addWidget(button.widget());

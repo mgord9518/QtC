@@ -5,8 +5,22 @@ const BoxLayout = @This();
 const Layout = @import("Layout.zig");
 const Widget = @import("Widget.zig");
 
+pub const InitOptions = struct {
+    parent: ?*Widget = null,
+    direction: Direction,
+};
+
+pub fn init(opts: InitOptions) *BoxLayout {
+    return @ptrCast(
+        c.QtC_BoxLayout_new(
+            @intFromEnum(opts.direction),
+            @ptrCast(opts.parent),
+        ),
+    );
+}
+
 pub fn deinit(self: *BoxLayout) void {
-    self.widget().object().deinit();
+    c.QtC_BoxLayout_delete(@ptrCast(self));
 }
 
 pub fn addLayout(self: *BoxLayout, child: ?*Layout) void {
@@ -31,12 +45,3 @@ pub const Direction = enum(u2) {
     top_to_bottom = 2,
     bottom_to_top = 3,
 };
-
-pub fn init(direction: Direction, parent: ?*Widget) *BoxLayout {
-    return @ptrCast(
-        c.QtC_BoxLayout_create(
-            @intFromEnum(direction),
-            parent,
-        ),
-    );
-}

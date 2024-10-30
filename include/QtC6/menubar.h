@@ -8,16 +8,13 @@
 extern "C" {
 #endif
 
-QtC_COMMON_DECLS(ListWidget);
+QtC_COMMON_DECLS(MenuBar);
 
-QtC_ListWidget* QtC_ListWidget_create(
+QtC_MenuBar* QtC_MenuBar_new(
     QtC_Widget* parent
 );
 
-void QtC_ListWidget_addItemString(
-    QtC_ListWidget* self,
-    const QtC_String* item
-);
+void QtC_MenuBar_addMenuString(QtC_MenuBar* self, const QtC_String* label);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,7 @@
 #include <stddef.h>
 
 #include <QtC6/qt.h>
+#include <QtC6/widget.h>
 #include <QtC6/string.h>
 #include <QtC6/application.h>
 #include <QtC6/pushbutton.h>
@@ -9,7 +10,7 @@
 #include <QtC6/boxlayout.h>
 
 #define STR(str) \
-    QtC_String_create(str, sizeof(str) - 1)
+    QtC_String_new(str, sizeof(str) - 1)
 
 int main(int argc, char** argv) {
     QtC_Application* app = QtC_Application_create(
@@ -17,7 +18,7 @@ int main(int argc, char** argv) {
         argv
     );
 
-    QtC_Widget* window = QtC_Widget_create(NULL, QtC_WindowFlags_Window);
+    QtC_Widget* window = QtC_Widget_new(NULL, QtC_WindowFlags_Window);
 
     QtC_Widget_setWindowTitle(window, STR("Qt with C!"));
 
@@ -37,7 +38,7 @@ int main(int argc, char** argv) {
         NULL
     );
 
-    QtC_BoxLayout* layout = QtC_BoxLayout_create(
+    QtC_BoxLayout* layout = QtC_BoxLayout_new(
         QtC_BoxLayout_Direction_BottomToTop,
         window
     );

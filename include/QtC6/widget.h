@@ -1,16 +1,18 @@
 #pragma once
 
 #include "qt.h"
+#include "private/common.h"
+#include "private/widget_defs.h"
 #include "string.h"
+#include "layout.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct QtC_Widget QtC_Widget;
+QtC_COMMON_DECLS(Widget);
 
-// TODO: WindowFlags
-QtC_Widget* QtC_Widget_create(
+QtC_Widget* QtC_Widget_new(
     QtC_Widget*     parent,
     QtC_WindowFlags flags
 );
@@ -19,6 +21,11 @@ void QtC_Widget_resize(
     QtC_Widget* self,
     int width,
     int height
+);
+
+void QtC_Widget_setLayout(
+    QtC_Widget* self,
+    QtC_Layout* layout
 );
 
 void QtC_Widget_setMinimumSize(

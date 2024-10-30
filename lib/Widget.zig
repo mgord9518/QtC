@@ -3,18 +3,24 @@ const Widget = @This();
 const qt = @import("qt.zig");
 const c = qt.c;
 
-const Object = @import("Object.zig");
-const PaintDevice = @import("PaintDevice.zig");
+const Object = qt.Object;
+const PaintDevice = qt.layouts.Layout;
+const Layout = qt.layouts.Layout;
 
-pub fn init(parent: ?*Widget, flags: qt.WindowFlags) *Widget {
-    return @ptrCast(c.QtC_Widget_create(
-        @ptrCast(parent),
-        @intFromEnum(flags),
+pub const Options = struct {
+    parent: ?*Widget = null,
+    flags: qt.WindowFlags = .widget,
+};
+
+pub fn init(opts: Options) *Widget {
+    return @ptrCast(c.QtC_Widget_new(
+        @ptrCast(opts.parent),
+        @intFromEnum(opts.flags),
     ));
 }
 
 pub fn deinit(wid: *Widget) void {
-    wid.object().deinit();
+    c.QtC_Widget_delete(@ptrCast(wid));
 }
 
 pub fn resize(wid: *Widget, w: u32, h: u32) void {
@@ -48,7 +54,7 @@ pub fn show(wid: *Widget) void {
 }
 
 pub fn setWindowTitle(wid: *Widget, label: []const u8) void {
-    const str = c.QtC_String_create(label.ptr, @intCast(label.len));
+    const str = c.QtC_String_new(label.ptr, @intCast(label.len));
 
     c.QtC_Widget_setWindowTitle(
         @ptrCast(wid),
@@ -60,6 +66,13 @@ pub fn setParent(wid: *Widget, new_parent: ?*Widget) void {
     c.QtC_Widget_setParentWidget(
         @ptrCast(wid),
         @ptrCast(new_parent),
+    );
+}
+
+pub fn setLayout(self: *Widget, layout: ?*Layout) void {
+    c.QtC_Widget_setLayout(
+        @ptrCast(self),
+        @ptrCast(layout),
     );
 }
 

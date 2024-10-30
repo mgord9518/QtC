@@ -1,10 +1,10 @@
 #pragma once
 
+#include "private/widget_defs.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-typedef struct QtC_AbstractButton QtC_AbstractButton;
 
 #ifdef __cplusplus
 }

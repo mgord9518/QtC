@@ -6,7 +6,8 @@ const PaintDevice = @import("PaintDevice.zig");
 
 pub fn load(self: *Pixmap, filename: []const u8, format: ?[]const u8, flags: ?u32) bool {
     const f = if (format != null) format.?.ptr else null;
-    const str = c.QtC_String_create(filename.ptr, @intCast(filename.len));
+    const str = c.QtC_String_new(filename.ptr, @intCast(filename.len));
+    defer c.QtC_String_delete(str);
 
     return c.QtC_Pixmap_load(
         @ptrCast(self),

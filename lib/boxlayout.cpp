@@ -1,12 +1,14 @@
 #include <QtWidgets/QBoxLayout>
 
 #include <QtC6/private/common.h>
+#include <QtC6/private/widget_defs.h>
 #include <QtC6/boxlayout.h>
-#include <QtC6/widget.h>
 
 extern "C" {
 
-QtC_BoxLayout* QtC_BoxLayout_create(QtC_BoxLayout_Direction direction, void* parent) {
+QtC_COMMON_FUNCTIONS(BoxLayout);
+
+QtC_BoxLayout* QtC_BoxLayout_new(QtC_BoxLayout_Direction direction, QtC_Widget* parent) {
     return reinterpret_cast<QtC_BoxLayout*>(
         new QBoxLayout(
             static_cast<QBoxLayout::Direction>(direction),

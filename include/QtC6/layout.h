@@ -1,13 +1,12 @@
 #pragma once
 
-#include "widget.h"
+#include "stdbool.h"
+#include "private/widget_defs.h"
 #include "qt.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-typedef struct QtC_Layout QtC_Layout;
 
 QtC_Layout* QtC_Layout_create(
     QtC_Widget* parent
