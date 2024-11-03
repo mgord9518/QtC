@@ -9,7 +9,7 @@ QtC_COMMON_FUNCTIONS(ProgressBar);
 
 QtC_ProgressBar* QtC_ProgressBar_new(QtC_Widget* parent) {
     return QtC_FROM_CLASS(ProgressBar, new QProgressBar(
-        QtC_TO_CLASS(Widget, parent),
+        QtC_TO_CLASS(Widget, parent)
     ));
 }
 

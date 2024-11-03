@@ -1,7 +1,5 @@
 #pragma once
 
-typedef struct QtC_Widget QtC_Widget;
-
 #define QtC_TO_CLASS(Class, object) \
     reinterpret_cast<Q##Class*>(object)
 

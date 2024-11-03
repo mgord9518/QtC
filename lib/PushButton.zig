@@ -4,12 +4,12 @@ const PushButton = @This();
 const Widget = @import("Widget.zig");
 const AbstractButton = @import("AbstractButton.zig");
 
-pub const Options = struct {
+pub const InitOptions = struct {
     parent: ?*Widget = null,
     label: []const u8 = "",
 };
 
-pub fn init(opts: Options) *PushButton {
+pub fn init(opts: InitOptions) *PushButton {
     const str = c.QtC_String_new(opts.label.ptr, @intCast(opts.label.len));
     defer c.QtC_String_delete(str);
 

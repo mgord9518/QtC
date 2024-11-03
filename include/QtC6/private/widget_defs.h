@@ -1,16 +1,24 @@
-typedef struct QtC_Widget QtC_Widget;
-typedef struct QtC_Label  QtC_Label;
-typedef struct QtC_AbstractButton QtC_AbstractButton;
-typedef struct QtC_AbstractItemView QtC_AbstractItemView;
-typedef struct QtC_AbstractScrollArea QtC_AbstractScrollArea;
-typedef struct QtC_BoxLayout QtC_BoxLayout;
-typedef struct QtC_Frame QtC_Frame;
-typedef struct QtC_Label QtC_Label;
-typedef struct QtC_Layout QtC_Layout;
-typedef struct QtC_LineEdit QtC_LineEdit;
-typedef struct QtC_ListView QtC_ListView;
-typedef struct QtC_ListWidget QtC_ListWidget;
-typedef struct QtC_MainWindow QtC_MainWindow;
-typedef struct QtC_MenuBar QtC_MenuBar;
-typedef struct QtC_ProgressBar QtC_ProgressBar;
-typedef struct QtC_PushButton QtC_PushButton;
+#define DEF(Class) \
+    typedef struct QtC_##Class QtC_##Class;
+
+DEF(Layout)
+DEF(BoxLayout)
+
+DEF(Widget)
+DEF(Label)
+DEF(AbstractButton)
+DEF(AbstractItemView)
+DEF(AbstractScrollArea)
+DEF(Frame)
+DEF(Label)
+DEF(LineEdit)
+DEF(ListView)
+DEF(ListWidget)
+DEF(MainWindow)
+DEF(MenuBar)
+DEF(PushButton)
+DEF(ProgressBar)
+DEF(ColumnView)
+DEF(TreeView)
+DEF(TreeWidget)
+DEF(TreeWidgetItem)

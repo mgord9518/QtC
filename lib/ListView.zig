@@ -5,16 +5,13 @@ const c = @import("qt.zig").c;
 const Widget = @import("Widget.zig");
 const AbstractItemView = @import("AbstractItemView.zig");
 
-//pub fn setParent(wid: *Widget, new_parent: ?*Widget) void {
-//    c.QtC_Widget_setParentWidget(
-//        @ptrCast(wid),
-//        @ptrCast(new_parent),
-//    );
-//}
+pub const InitOptions = struct {
+    parent: ?*Widget = null,
+};
 
-pub fn init(parent: ?*Widget) *ListView {
+pub fn init(opts: InitOptions) *ListView {
     return @ptrCast(c.QtC_ListView_create(
-        @ptrCast(parent),
+        @ptrCast(opts.parent),
     ));
 }
 

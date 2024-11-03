@@ -16,14 +16,12 @@ echo "Creating files: \`include/$prefix/${widget_name_lower}.h\` \`lib/${widget_
 
 echo -e "#pragma once
 
+#include \"private/widget_defs.h\"
 #include \"private/common.h\"
-#include \"widget.h\"
 
 #ifdef __cplusplus
 extern \"C\" {
 #endif
-
-typedef struct QtC_$widget_name QtC_$widget_name;
 
 QtC_COMMON_DECLS($widget_name);
 
@@ -61,15 +59,10 @@ const Widget = qt.widgets.Widget;
 
 pub const InitOptions = struct {
     parent: ?*Widget = null,
-    label: []const u8 = \"\",
 };
 
 pub fn init(opts: InitOptions) *$widget_name {
-    const str = c.QtC_String_new(opts.label.ptr, @intCast(opts.label.len));
-    defer c.QtC_String_delete(str);
-
     return @ptrCast(c.QtC_${widget_name}_new(
-        str,
         @ptrCast(opts.parent),
     ));
 }
@@ -81,3 +74,7 @@ pub fn deinit(self: *$widget_name) void {
 pub fn widget(self: *$widget_name) *Widget {
     return @ptrCast(self);
 }" > "lib/${widget_name}.zig"
+
+grep -qxF "DEF($widget_name)" "include/$prefix/private/widget_defs.h" || echo "DEF($widget_name)" >> "include/$prefix/private/widget_defs.h"
+grep -qxF "pub const @\"$widget_name\" = @import(\"${widget_name}.zig\");" "lib/qt_widgets.zig" || echo "pub const @\"$widget_name\" = @import(\"${widget_name}.zig\");" >> "lib/qt_widgets.zig"
+

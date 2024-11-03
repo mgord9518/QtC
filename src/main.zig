@@ -6,7 +6,7 @@ const layouts = qt.layouts;
 const zig_svg = @embedFile("zig.svg");
 
 pub fn main() !void {
-    const app = qt.Application.init();
+    const app = qt.Application.init(.{});
 
     const window = widgets.Widget.init(.{});
     defer window.deinit();

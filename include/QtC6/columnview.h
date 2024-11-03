@@ -7,9 +7,9 @@
 extern "C" {
 #endif
 
-QtC_COMMON_DECLS(ProgressBar);
+QtC_COMMON_DECLS(ColumnView);
 
-QtC_ProgressBar* QtC_ProgressBar_new(
+QtC_ColumnView* QtC_ColumnView_new(
     QtC_Widget* parent
 );
 

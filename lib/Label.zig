@@ -5,13 +5,13 @@ const qt = @import("qt.zig");
 const Widget = @import("Widget.zig");
 const Pixmap = @import("Pixmap.zig");
 
-pub const Options = struct {
+pub const InitOptions = struct {
     parent: ?*Widget = null,
     label: []const u8 = "",
     flags: qt.WindowFlags = .widget,
 };
 
-pub fn init(opts: Options) *Label {
+pub fn init(opts: InitOptions) *Label {
     const str = c.QtC_String_new(opts.label.ptr, @intCast(opts.label.len));
     defer c.QtC_String_delete(str);
 

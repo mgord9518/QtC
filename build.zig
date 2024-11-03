@@ -112,6 +112,12 @@ pub fn buildLibQtC6(
             "lib/pixmap.cpp",
             "lib/menubar.cpp",
             "lib/mainwindow.cpp",
+            "lib/progressbar.cpp",
+            "lib/columnview.cpp",
+            "lib/treeview.cpp",
+            "lib/treewidget.cpp",
+            "lib/treewidgetitem.cpp",
+            "lib/stringlist.cpp",
         },
         .flags = &.{
             "-Wall",

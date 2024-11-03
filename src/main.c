@@ -13,7 +13,7 @@
     QtC_String_new(str, sizeof(str) - 1)
 
 int main(int argc, char** argv) {
-    QtC_Application* app = QtC_Application_create(
+    QtC_Application* app = QtC_Application_new(
         argc,
         argv
     );

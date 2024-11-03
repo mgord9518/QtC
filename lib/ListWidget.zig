@@ -5,9 +5,13 @@ const c = @import("qt.zig").c;
 const Widget = @import("Widget.zig");
 const ListView = @import("ListView.zig");
 
-pub fn init(parent: ?*Widget) *ListWidget {
+pub const InitOptions = struct {
+    parent: ?*Widget = null,
+};
+
+pub fn init(opts: InitOptions) *ListWidget {
     return @ptrCast(c.QtC_ListWidget_create(
-        @ptrCast(parent),
+        @ptrCast(opts.parent),
     ));
 }
 

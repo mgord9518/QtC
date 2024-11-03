@@ -7,39 +7,7 @@ pub const layouts = struct {
     pub const BoxLayout = @import("BoxLayout.zig");
 };
 
-pub const widgets = struct {
-    pub const Widget = @import("Widget.zig");
-
-    pub const AbstractButton = @import("AbstractButton.zig");
-    pub const PushButton = @import("PushButton.zig");
-    pub const ListView = @import("ListView.zig");
-    pub const ListWidget = @import("ListWidget.zig");
-    pub const LineEdit = @import("LineEdit.zig");
-    pub const MenuBar = @import("MenuBar.zig");
-    pub const MainWindow = @import("MainWindow.zig");
-
-    pub const Label = @import("Label.zig");
-};
-
-pub fn assertType(comptime T: type, comptime type_name: []const u8) void {
-    comptime {
-        if (!isType(T, type_name)) {
-            @compileError("Invalid type given; must be " ++ type_name ++ ".");
-        }
-    }
-}
-
-pub fn isType(comptime T: type, comptime type_name: []const u8) bool {
-    comptime {
-        const type_info = @typeInfo(T);
-        const Child = type_info.Pointer.child;
-
-        //return @hasDecl(Child, "QtZig_is_" ++ type_name) and @field(Child, "QtZig_is_" ++ type_name);
-        return @hasDecl(Child, "QtZig_is_" ++ type_name);
-    }
-
-    unreachable;
-}
+pub const widgets = @import("qt_widgets.zig");
 
 pub const Alignment = struct {
     horizontal: HorizontalAlignment,
@@ -93,4 +61,10 @@ pub const c = @cImport({
     @cInclude("QtC6/string.h");
     @cInclude("QtC6/menubar.h");
     @cInclude("QtC6/mainwindow.h");
+    @cInclude("QtC6/progressbar.h");
+    @cInclude("QtC6/columnview.h");
+    @cInclude("QtC6/treeview.h");
+    @cInclude("QtC6/treewidget.h");
+    @cInclude("QtC6/treewidgetitem.h");
+    @cInclude("QtC6/stringlist.h");
 });

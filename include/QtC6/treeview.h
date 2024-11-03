@@ -7,9 +7,9 @@
 extern "C" {
 #endif
 
-QtC_COMMON_DECLS(ProgressBar);
+QtC_COMMON_DECLS(TreeView);
 
-QtC_ProgressBar* QtC_ProgressBar_new(
+QtC_TreeView* QtC_TreeView_new(
     QtC_Widget* parent
 );
 
