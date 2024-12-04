@@ -93,9 +93,9 @@ pub fn buildLibQtC6(
         .strip = options.strip orelse false,
     });
 
-    lib.addIncludePath(b.path("include"));
+    lib.root_module.addIncludePath(b.path("include"));
 
-    lib.addCSourceFiles(.{
+    lib.root_module.addCSourceFiles(.{
         .root = b.path("."),
         .files = &.{
             "lib/string.cpp",
