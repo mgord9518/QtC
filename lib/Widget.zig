@@ -55,6 +55,7 @@ pub fn show(wid: *Widget) void {
 
 pub fn setWindowTitle(wid: *Widget, label: []const u8) void {
     const str = c.QtC_String_new(label.ptr, @intCast(label.len));
+    defer c.QtC_String_delete(str);
 
     c.QtC_Widget_setWindowTitle(
         @ptrCast(wid),

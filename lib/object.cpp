@@ -1,11 +1,15 @@
 #include <QtCore/QObject>
+#include <QtWidgets/QPushButton>
 
+#include <stdio.h>
+
+#include <QtC6/private/widget_defs.h>
 #include <QtC6/private/common.h>
 #include <QtC6/object.h>
 
 extern "C" {
 
-void QtC_Object_destroy(QtC_Object* self) {
+void QtC_Object_delete(QtC_Object* self) {
     delete QtC_TO_CLASS(Object, self);
 }
 
@@ -27,6 +31,24 @@ void QtC_Object_setParent(QtC_Object* self, QtC_Object* parent) {
 
 bool QtC_Object_signalsBlocked(QtC_Object* self) {
     return QtC_TO_CONST_CLASS(Object, self)->signalsBlocked();
+}
+
+void test() {
+    printf("test\n");
+}
+
+// TODO
+void QtC_Object_connect(const QtC_Object* sender, const void* signal, const void* function) {
+//    QObject::connect(
+//        QtC_TO_CONST_CLASS(PushButton, sender),
+//        //(void (QPushButton::*)())(&QPushButton::clicked),
+//        (void (QPushButton::*)())(*signal),
+//        //(const void (*)())(function)
+//        [=]() {
+//            ((void (*)())(function))();
+//        }
+//        //static_cast<Qt::ConnectionType>(type)
+//    );
 }
 
 }

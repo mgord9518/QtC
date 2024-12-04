@@ -1,6 +1,7 @@
 pub const Object = @import("Object.zig");
 pub const Application = @import("Application.zig");
 pub const Pixmap = @import("Pixmap.zig");
+pub const Icon = @import("Icon.zig");
 
 pub const layouts = struct {
     pub const Layout = @import("Layout.zig");
@@ -67,4 +68,6 @@ pub const c = @cImport({
     @cInclude("QtC6/treewidget.h");
     @cInclude("QtC6/treewidgetitem.h");
     @cInclude("QtC6/stringlist.h");
+    @cInclude("QtC6/tabwidget.h");
+    @cInclude("QtC6/icon.h");
 });

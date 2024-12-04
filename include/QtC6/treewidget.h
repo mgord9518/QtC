@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdbool.h"
 #include "private/widget_defs.h"
 #include "private/common.h"
 #include "stringlist.h"
@@ -22,6 +23,11 @@ void QtC_TreeWidget_setColumnCount(
 void QtC_TreeWidget_setHeaderLabels(
     QtC_TreeWidget* self,
     const QtC_StringList* labels
+);
+
+void QtC_TreeWidget_setSortingEnabled(
+    QtC_TreeWidget* self,
+    bool enabled
 );
 
 #ifdef __cplusplus

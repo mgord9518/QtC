@@ -12,3 +12,5 @@ pub const ColumnView = @import("ColumnView.zig");
 pub const @"TreeView" = @import("TreeView.zig");
 pub const @"TreeWidget" = @import("TreeWidget.zig");
 pub const @"TreeWidgetItem" = @import("TreeWidgetItem.zig");
+pub const @"TabWidget" = @import("TabWidget.zig");
+pub const @"Icon" = @import("Icon.zig");

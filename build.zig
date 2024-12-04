@@ -104,6 +104,7 @@ pub fn buildLibQtC6(
             "lib/application.cpp",
             "lib/layout.cpp",
             "lib/boxlayout.cpp",
+            "lib/abstractbutton.cpp",
             "lib/pushbutton.cpp",
             "lib/label.cpp",
             "lib/lineedit.cpp",
@@ -118,6 +119,8 @@ pub fn buildLibQtC6(
             "lib/treewidget.cpp",
             "lib/treewidgetitem.cpp",
             "lib/stringlist.cpp",
+            "lib/tabwidget.cpp",
+            "lib/icon.cpp",
         },
         .flags = &.{
             "-Wall",

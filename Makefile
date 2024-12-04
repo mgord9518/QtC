@@ -8,9 +8,9 @@ LDFLAGS=-lstdc++ -lQt6Core -lQt6Widgets -lQt6Gui
 
 objects= \
 	application.o \
-	object.o paintdevice.o pixmap.o string.o \
+	object.o paintdevice.o pixmap.o string.o icon.o \
 	layout.o boxlayout.o \
-	widget.o label.o pushbutton.o
+	widget.o label.o abstractbutton.o pushbutton.o
 
 all: qt-c libQtC6.so
 

@@ -8,6 +8,7 @@
 #include <QtC6/label.h>
 #include <QtC6/layout.h>
 #include <QtC6/boxlayout.h>
+#include <QtC6/icon.h>
 
 #define STR(str) \
     QtC_String_new(str, sizeof(str) - 1)
@@ -33,10 +34,14 @@ int main(int argc, char** argv) {
 
     QtC_Label_setPixmap(label, pixmap);
 
-    QtC_PushButton* button = QtC_PushButton_create(
+    QtC_Icon* blank_icon = QtC_Icon_new();
+
+    QtC_PushButton* button = QtC_PushButton_new(
+        blank_icon,
         STR("Hello, world!"),
         NULL
     );
+
 
     QtC_BoxLayout* layout = QtC_BoxLayout_new(
         QtC_BoxLayout_Direction_BottomToTop,

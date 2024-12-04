@@ -1,13 +1,16 @@
 #pragma once
 
+#include "private/common.h"
 #include "private/widget_defs.h"
-#include "string.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QtC_PushButton* QtC_PushButton_create(
+QtC_COMMON_DECLS(PushButton);
+
+QtC_PushButton* QtC_PushButton_new(
+    const QtC_Icon* icon,
     const QtC_String* label,
     QtC_Widget* parent
 );

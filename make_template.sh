@@ -75,6 +75,8 @@ pub fn widget(self: *$widget_name) *Widget {
     return @ptrCast(self);
 }" > "lib/${widget_name}.zig"
 
+echo "Appending to: \`include/$prefix/private/widget_defs.h\` \`lib/qt_widgets.zig\`"
+
 grep -qxF "DEF($widget_name)" "include/$prefix/private/widget_defs.h" || echo "DEF($widget_name)" >> "include/$prefix/private/widget_defs.h"
 grep -qxF "pub const @\"$widget_name\" = @import(\"${widget_name}.zig\");" "lib/qt_widgets.zig" || echo "pub const @\"$widget_name\" = @import(\"${widget_name}.zig\");" >> "lib/qt_widgets.zig"
 

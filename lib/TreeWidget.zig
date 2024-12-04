@@ -2,10 +2,9 @@ const qt = @import("qt.zig");
 const c = qt.c;
 
 const TreeWidget = @This();
-const Widget = qt.widgets.Widget;
 
 pub const InitOptions = struct {
-    parent: ?*Widget = null,
+    parent: ?*qt.widgets.Widget = null,
 };
 
 pub fn init(opts: InitOptions) *TreeWidget {
@@ -36,6 +35,18 @@ pub fn setHeaderLabels(self: *TreeWidget, labels: []const []const u8) void {
     c.QtC_TreeWidget_setHeaderLabels(@ptrCast(self), list);
 }
 
-pub fn widget(self: *TreeWidget) *Widget {
+pub fn setSortingEnabled(self: *TreeWidget, enabled: bool) void {
+    c.QtC_TreeWidget_setSortingEnabled(@ptrCast(self), enabled);
+}
+
+pub fn treeWidget(self: *TreeWidget) *TreeWidget {
+    return self;
+}
+
+pub fn treeView(self: *TreeWidget) *qt.widgets.TreeView {
+    return @ptrCast(self);
+}
+
+pub fn widget(self: *TreeWidget) *qt.widgets.Widget {
     return @ptrCast(self);
 }

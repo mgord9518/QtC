@@ -1,27 +1,31 @@
 const c = @import("qt.zig").c;
 const Object = @This();
 
-pub fn deinit(obj: *Object) void {
-    c.QtC_Object_destroy(@ptrCast(obj));
+pub fn init(parent_object: *?anyopaque) *Object {
+    return @ptrCast(c.QtC_Object_new(parent_object));
 }
 
-pub fn parent(obj: *const Object) ?*Object {
+pub fn deinit(self: *Object) void {
+    c.QtC_Object_delete(@ptrCast(self));
+}
+
+pub fn parent(self: *const Object) ?*Object {
     return @ptrCast(
-        c.QtC_Object_parent(@ptrCast(obj)),
+        c.QtC_Object_parent(@ptrCast(self)),
     );
 }
 
-pub fn setParent(obj: *Object, new_parent: ?*void) void {
+pub fn setParent(self: *Object, new_parent: ?*void) void {
     c.QtC_Object_setParent(
-        @ptrCast(obj),
+        @ptrCast(self),
         new_parent,
     );
 }
 
-pub fn object(self: *Object) *Object {
-    return self;
+pub fn connect(self: *Object, signal: *const anyopaque, function: *const anyopaque) void {
+    c.QtC_Object_connect(@ptrCast(self), signal, function);
 }
 
-pub fn init(parent_object: *?anyopaque) *Object {
-    return @ptrCast(c.QtC_Object_create(parent_object));
+pub fn object(self: *Object) *Object {
+    return self;
 }

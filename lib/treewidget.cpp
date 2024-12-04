@@ -26,4 +26,8 @@ void QtC_TreeWidget_setHeaderLabels(QtC_TreeWidget* self, const QtC_StringList* 
     );
 }
 
+void QtC_TreeWidget_setSortingEnabled(QtC_TreeWidget* self, bool enabled) {
+    QtC_TO_CLASS(TreeWidget, self)->setSortingEnabled(enabled);
+}
+
 }
