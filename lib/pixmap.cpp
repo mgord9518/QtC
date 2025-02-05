@@ -26,8 +26,9 @@ bool QtC_Pixmap_load(QtC_Pixmap* self, const QtC_String* filename, const char* f
 bool QtC_Pixmap_loadFromData(QtC_Pixmap* self, const char* data, int data_len, const char* format, int flags) {
     QPixmap* pixmap = reinterpret_cast<QPixmap*>(self);
 
-    return pixmap->load(
-        QString::fromUtf8(data, data_len),
+    return pixmap->loadFromData(
+        reinterpret_cast<const uchar *>(data),
+        data_len,
         format
     );
 }
