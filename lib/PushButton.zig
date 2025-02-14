@@ -23,7 +23,7 @@ pub fn init(opts: InitOptions) *PushButton {
     // Only free this data if we own it
     //defer if (opts.icon == null) c.QtC_Icon_delete(@constCast(icon));
 
-    return @ptrCast(c.QtC_PushButton_create(
+    return @ptrCast(c.QtC_PushButton_new(
         icon,
         str,
         @ptrCast(opts.parent),
